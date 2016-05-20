@@ -10,12 +10,20 @@
 | database. Just tell the factory how a default model should look.
 |
 */
+$factory = app('Illuminate\Database\Eloquent\Factory');
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\Rota::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->safeEmail,
-        'password' => bcrypt(str_random(10)),
-        'remember_token' => str_random(10),
+        'via' => $faker->name,
+        'onibus' => str_random(1),
+        'motorista' => $faker->number,
     ];
 });
+
+$factory->define(App\Ponto::class, function (Faker\Generator $faker) {
+    return [
+        'nome' => $faker->name,
+    ];
+});
+
+

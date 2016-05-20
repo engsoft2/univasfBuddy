@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Rota;
-use App\Parada;
+use App\Ponto;
 use Illuminate\Console\Command;
 
 class ImportarRotas extends Command
@@ -22,8 +22,8 @@ class ImportarRotas extends Command
      */
     protected $description = 'Adiciona informações referentes às rotas dos ônibus da UNIVASF';
 
-    protected $first = true;
-
+    protected $rota = null;
+    protected $ponto = null;
     /**
      * Create a new command instance.
      *
@@ -48,25 +48,19 @@ class ImportarRotas extends Command
           $cols = explode(",", $line);
           switch ($cols[0]) {
             case 'Motorista':
-              $motorista = $cols[1];
+              $this->rota = new Rota;
+              $this->rota->motorista = $cols[1];
               break;
             case 'Ônibus':
-              $onibus = $cols[1];
+              $this->rota->onibus = $cols[1];
               break;
             case 'Via':
-              //$rota->via = $cols[0];
+              $this->rota->via = $cols[1];
+              $this->rota->save();
             break;
             default:
-              $rota = new Rota;
-              $rota->onibus = $onibus;
-              $rota->motorista = $motorista;
-              $rota->horario = $cols[0];
-              $parada = new Parada;
-              $parada->nome = $cols[3];
-              // não está atualizando o banco de dados, mas incluindo todas as paradas 
-              $parada->save();
-              $rota->paradas_id = $parada->id;
-              $rota->save();
+              $ponto = Ponto::firstOrCreate(['nome' => $cols[3]]);            
+              $this->rota->pontos()->attach($ponto, ['horario' => $cols[0]]);
               break;
           }
         }

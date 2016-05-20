@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/paradas/{origem}', [
+    'uses' => 'RotaController@getParadas',
+    'as' => 'parada'
+]);

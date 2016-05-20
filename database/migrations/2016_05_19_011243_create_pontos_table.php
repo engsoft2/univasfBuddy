@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRotasTable extends Migration
+class CreatePontosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,11 @@ class CreateRotasTable extends Migration
      */
     public function up()
     {
-        Schema::create('rotas', function (Blueprint $table) {
+        Schema::create('pontos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('onibus');
-            $table->string('motorista');
-            $table->string('via');
+            $table->string('nome');
             $table->timestamps();
         });
-
     }
 
     /**
@@ -29,6 +26,6 @@ class CreateRotasTable extends Migration
      */
     public function down()
     {
-        Schema::drop('rotas');
+        Schema::drop('pontos');
     }
 }

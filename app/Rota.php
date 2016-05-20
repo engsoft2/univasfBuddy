@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rota extends Model
 {
-    public function paradas()
+    public function pontos()
     {
-        return $this->hasMany('App\Parada');
+        return $this->belongsToMany('App\Ponto', 'rota_ponto', 'rota_id', 'ponto_id')->withPivot('horario');
     }
 }

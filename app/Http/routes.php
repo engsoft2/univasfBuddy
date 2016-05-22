@@ -21,8 +21,8 @@ Route::get('/paradas/{origem}', [
 ]);
 
 Route::get('/rotas/{id}',
-['uses' => 'RotaController@showParada']);
+['uses' => 'RotaController@showParadasDaRota']);
 
 Route::get('/rotas/',
-['uses' => 'RotaController@showParadas']);
+['uses' => 'RotaController@showTodasRotas']);
 

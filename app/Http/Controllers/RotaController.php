@@ -20,6 +20,7 @@ class parada{
 	public $horario = "";
 }
 
+
 class RotaController extends Controller
 {
     public function getParadas(Request $request){
@@ -33,13 +34,21 @@ class RotaController extends Controller
     		}
         }   	
     }
-	public function showParada($id)
+	public function showParadasDaRota($id)
 	{
 		$rota = Rota::find($id);
 		
-		return $rota->pontos->all();
+		$retorno = array();
+		foreach($rota->pontos as $ponto)
+		{
+			$p = array('rota_id' => $ponto->pivot->rota_id,
+    		'nome_parada' => $ponto->nome,
+    		'horario' => $ponto->pivot->horario);
+			array_push($retorno,$p);
+		}	
+		return json_encode(array('parada' => $retorno));
 	}
-	public function showParadas()
+	public function showTodasRotas()
 	{
 		
 		$retornoArray = array();

@@ -19,3 +19,10 @@ Route::get('/paradas/{origem}', [
     'uses' => 'RotaController@getParadas',
     'as' => 'parada'
 ]);
+
+Route::get('/rotas/{id}',
+['uses' => 'RotaController@showParada']);
+
+Route::get('/rotas/',
+['uses' => 'RotaController@showParadas']);
+

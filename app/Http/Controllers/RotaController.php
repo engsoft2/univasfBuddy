@@ -20,6 +20,11 @@ class parada{
 	public $horario = "";
 }
 
+class RotaParada{
+	public $rota_id = "";
+	public $rota_nome = "";
+}
+
 
 class RotaController extends Controller
 {
@@ -67,5 +72,35 @@ class RotaController extends Controller
 			array_push($retornoArray,$ret);
 		}
 		return $retornoArray;
+	}
+	public function getRotasParaDestino($id){		
+		//$rotasValidas = Rota::all();
+		$ponto = Ponto::find($id);
+		$rotasValidas = $ponto->rotas;
+		$retorno = array();
+		
+		foreach($rotasValidas as $rota)
+		{
+			$pontos = array();
+			//echo $rota;
+			$pontosRota = $rota->pontos->all();
+			
+			//echo $pontosRota[0];
+			foreach($pontosRota as $pt)
+			{
+				$p = array(	'ponto_id' => $pt->id,
+							'ponto_nome' => $pt->nome,
+							'ponto_horario' => $pt->pivot->horario);
+				array_push($pontos,$p);
+			}
+			$r = array('rota_id' => $rota->id,
+						'rota_onibus' => $rota->onibus,
+						'rota_motorista' => $rota->motorista,
+						'rota_via' => $rota->via,
+						'pontos' => $pontos);
+			array_push($retorno,$r);
+		}
+		return $retorno;
+		
 	}
 }

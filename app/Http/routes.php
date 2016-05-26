@@ -26,3 +26,8 @@ Route::get('/rotas/{id}',
 Route::get('/rotas/',
 ['uses' => 'RotaController@showTodasRotas']);
 
+Route::get('/rotasAPI/{id}',
+['uses' => 'RotaController@getRotasParaDestino']);
+
+
+

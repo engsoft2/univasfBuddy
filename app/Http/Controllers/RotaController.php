@@ -9,7 +9,7 @@ use App\Rota;
 use App\ Ponto;
 
 
-class ret 
+class ret
 {
 	public $rota = "";
 	public $ponto_inicial = "";
@@ -32,27 +32,28 @@ class RotaController extends Controller
     		    // pivot attribute exists on related subject
     		    echo $rota->pivot->horario . " - " . $rota->onibus . " - " . $rota->motorista . "<br>";
     		}
-        }   	
+        }
     }
 	public function showParadasDaRota($id)
 	{
 		$rota = Rota::find($id);
-		
+
 		$retorno = array();
 		foreach($rota->pontos as $ponto)
 		{
-			$p = array('rota_id' => $ponto->pivot->rota_id,
+			$p = array(
+				'rota_id' => $ponto->pivot->rota_id,
     		'nome_parada' => $ponto->nome,
     		'horario' => $ponto->pivot->horario);
 			array_push($retorno,$p);
-		}	
-		return json_encode(array('parada' => $retorno));
+		}
+		return $retorno;//json_encode(array('parada' => $retorno));
 	}
 	public function showTodasRotas()
 	{
-		
+
 		$retornoArray = array();
-		
+
 		$rotas = Rota::all();
 		foreach($rotas as $rota)
 		{
@@ -60,10 +61,14 @@ class RotaController extends Controller
 			$ret->ponto_inicial = new parada();
 			$ret->ponto_final = new parada();
 			$ret->rota = $rota->id;
+			$ret->onibus = $rota->onibus;
+			$ret->via = $rota->via;
 			$ret->ponto_inicial->nome = $rota->pontos->first()->nome;
 			$ret->ponto_inicial->horario = $rota->pontos->first()->pivot->horario;
 			$ret->ponto_final->nome = $rota->pontos->last()->nome;
 			$ret->ponto_final->horario = $rota->pontos->last()->pivot->horario;
+
+			$ret->paradas = $this->showParadasDaRota($rota->id);
 			array_push($retornoArray,$ret);
 		}
 		return $retornoArray;

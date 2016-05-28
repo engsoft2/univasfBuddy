@@ -20,6 +20,8 @@ Route::get('/paradas/{origem}', [
     'as' => 'parada'
 ]);
 
+Route::get('/paradas', 'RotaController@showTodasParadas');
+
 Route::get('/rotas/{id}',
 ['uses' => 'RotaController@showParadasDaRota']);
 
@@ -28,6 +30,3 @@ Route::get('/rotas/',
 
 Route::get('/rotasAPI/{id}', //este id eh o id do ponto destino, nao eh o id da rota. Essa funcao retorna todas as rotas nas quais esse ponto faz parte
 ['uses' => 'RotaController@getRotasParaDestino']);
-
-
-

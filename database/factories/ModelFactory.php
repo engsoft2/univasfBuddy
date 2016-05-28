@@ -14,8 +14,8 @@ $factory = app('Illuminate\Database\Eloquent\Factory');
 
 $factory->define(App\Rota::class, function (Faker\Generator $faker) {
     return [
-        'via' => $faker->name,
-        'onibus' => str_random(1),
+        'via'       => $faker->name,
+        'onibus'    => str_random(1),
         'motorista' => $faker->number,
     ];
 });
@@ -25,5 +25,3 @@ $factory->define(App\Ponto::class, function (Faker\Generator $faker) {
         'nome' => $faker->name,
     ];
 });
-
-

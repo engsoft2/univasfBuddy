@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::get('/paradas/{origem}', [
     'uses' => 'RotaController@getParadas',
-    'as' => 'parada'
+    'as'   => 'parada',
 ]);
 
 Route::get('/paradas', 'RotaController@showTodasParadas');

@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Ponto;
+use Illuminate\Database\Seeder;
 
 class PontoTableSeeder extends Seeder
 {
@@ -15,7 +15,7 @@ class PontoTableSeeder extends Seeder
         DB::table('pontos')->truncate();
 
         Ponto::create([
-        	
+
         ]);
     }
 }

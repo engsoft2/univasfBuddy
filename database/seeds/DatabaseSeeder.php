@@ -11,16 +11,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-    	/*
+        /*
         factory(Rota::class, 10)->create()->each(function($rota) {
-		    factory(Ponto::class, 5)->make()->each(function($ponto) use($rota) {
-		        $rota->pontos()->attach($ponto);
-		    });
-		});
-		*/
-		/*
-		factory(App\Ponto::class, 10)->make();
-		factory(App\Rota::class, 5)->make();
-		*/
+            factory(Ponto::class, 5)->make()->each(function($ponto) use($rota) {
+                $rota->pontos()->attach($ponto);
+            });
+        });
+        */
+        /*
+        factory(App\Ponto::class, 10)->make();
+        factory(App\Rota::class, 5)->make();
+        */
     }
 }

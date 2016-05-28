@@ -39,6 +39,11 @@ class RotaController extends Controller
     		}
         }
     }
+
+		public function showTodasParadas()
+		{
+			return Ponto::all();
+		}
 	public function showParadasDaRota($id)
 	{
 		$rota = Rota::find($id);
@@ -48,7 +53,10 @@ class RotaController extends Controller
 		{
 			$p = array(
 				'rota_id' => $ponto->pivot->rota_id,
+				'ponto_id' => $ponto->id,
     		'nome_parada' => $ponto->nome,
+    		'lat' => $ponto->lat,
+    		'lng' => $ponto->lng,
     		'horario' => $ponto->pivot->horario);
 			array_push($retorno,$p);
 		}
@@ -78,18 +86,18 @@ class RotaController extends Controller
 		}
 		return $retornoArray;
 	}
-	public function getRotasParaDestino($id){		
+	public function getRotasParaDestino($id){
 		//$rotasValidas = Rota::all();
 		$ponto = Ponto::find($id);
 		$rotasValidas = $ponto->rotas;
 		$retorno = array();
-		
+
 		foreach($rotasValidas as $rota)
 		{
 			$pontos = array();
 			//echo $rota;
 			$pontosRota = $rota->pontos->all();
-			
+
 			//echo $pontosRota[0];
 			foreach($pontosRota as $pt)
 			{
@@ -106,6 +114,6 @@ class RotaController extends Controller
 			array_push($retorno,$r);
 		}
 		return $retorno;
-		
+
 	}
 }

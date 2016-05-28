@@ -39,32 +39,33 @@ class ImportarRotas extends Command
      *
      * @return mixed
      */
-    public function handle()
-    {
-        $path =  base_path($this->argument('csv'));
-        $csv = file_get_contents($path);
-        $csv = explode("\n", $csv);
-        foreach ($csv as $line) {
-          $cols = explode(",", $line);
-          switch ($cols[0]) {
-            case 'Motorista':
-              $this->rota = new Rota;
-              $this->rota->motorista = $cols[1];
-              break;
-            case 'Ônibus':
-              $this->rota->onibus = $cols[1];
-              break;
-            case 'Via':
-              $this->rota->via = $cols[1];
-              $this->rota->save();
-            break;
-            default:
-              $ponto = Ponto::firstOrCreate(['nome' => $cols[3]]);            
-              $this->rota->pontos()->attach($ponto, ['horario' => $cols[0]]);
-              break;
-          }
-        }
-      $this->info('As tabelas foram preenchidas!');
-    }
-
+     public function handle()
+     {
+       $path =  base_path($this->argument('csv'));
+       // Reference: http://php.net/manual/en/function.fgetcsv.php
+       if (($handle = fopen($path, "r")) !== FALSE) {
+         while (($data = fgetcsv($handle, 100, ",")) !== FALSE) {
+           switch ($data[0]) {
+             case 'Motorista':
+               $this->rota = new Rota;
+               $this->rota->motorista = $data[1];
+               break;
+             case 'Ônibus':
+               $this->rota->onibus = $data[1];
+               break;
+             case 'Via':
+               $this->rota->via = $data[1];
+               $this->rota->save();
+               break;
+             default:
+               $ponto = Ponto::firstOrCreate(['nome' => $data[3],
+                                              'lat'  => $data[4],
+                                              'lng'  => $data[5]]);
+               $this->rota->pontos()->attach($ponto, ['horario' => $data[0]]);
+           }
+         }
+         fclose($handle);
+       }
+       $this->info('As tabelas foram preenchidas!');
+     }
 }

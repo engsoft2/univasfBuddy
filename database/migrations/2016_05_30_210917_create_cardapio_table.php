@@ -14,7 +14,19 @@ class CreateCardapioTable extends Migration
     {
         Schema::create('cardapio', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
+            $table->date('date');
+            $table->integer('type'); //almoço ou jantar
+            $table->text('sld_crua');
+            $table->text('sld_cozida');
+            $table->text('prt_principal');
+            $table->text('guarnicao');
+            $table->text('cereal');
+            $table->text('leguminosa');
+            $table->text('vegetariano');
+            $table->text('sobremesa');
+            $table->text('sopa');
+            $table->text('bebida');
+            //$table->timestamps();
         });
     }
 

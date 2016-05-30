@@ -1,5 +1,6 @@
 @extends('layouts.master')
 
+@include('includes.header')
 @include('includes.modal-refeicao')
 
 @section('title')

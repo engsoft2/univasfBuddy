@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+<<<<<<< Updated upstream
         /*
         factory(Rota::class, 10)->create()->each(function($rota) {
             factory(Ponto::class, 5)->make()->each(function($ponto) use($rota) {
@@ -22,5 +23,8 @@ class DatabaseSeeder extends Seeder
         factory(App\Ponto::class, 10)->make();
         factory(App\Rota::class, 5)->make();
         */
+=======
+    	$this->call(UsersTableSeeder::class);
+>>>>>>> Stashed changes
     }
 }

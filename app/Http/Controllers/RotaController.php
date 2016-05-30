@@ -86,7 +86,7 @@ class RotaController extends Controller
 
         return $retornoArray;
     }
-
+/*
     public function getRotasParaDestino($id)
     {
         //$rotasValidas = Rota::all();
@@ -116,4 +116,90 @@ class RotaController extends Controller
 
         return $retorno;
     }
+    */
+/*
+	public function showParadasDaRota($id)
+	{
+		$rota = Rota::find($id);
+		
+		$retorno = array();
+		foreach($rota->pontos as $ponto)
+		{
+			$p = array('rota_id' => $ponto->pivot->rota_id,
+    		'nome_parada' => $ponto->nome,
+    		'horario' => $ponto->pivot->horario);
+			array_push($retorno,$p);
+		}	
+		return json_encode(array('parada' => $retorno));
+	}
+    */
+    /*
+	public function showTodasRotas()
+	{
+		
+		$retornoArray = array();
+		
+		$rotas = Rota::all();
+		foreach($rotas as $rota)
+		{
+			$ret = new ret();
+			$ret->ponto_inicial = new parada();
+			$ret->ponto_final = new parada();
+			$ret->rota = $rota->id;
+			$ret->ponto_inicial->nome = $rota->pontos->first()->nome;
+			$ret->ponto_inicial->horario = $rota->pontos->first()->pivot->horario;
+			$ret->ponto_final->nome = $rota->pontos->last()->nome;
+			$ret->ponto_final->horario = $rota->pontos->last()->pivot->horario;
+			array_push($retornoArray,$ret);
+		}
+		return $retornoArray;
+	}
+    */
+	public function getRotasParaDestino($id){		
+		//$rotasValidas = Rota::all();
+		$ponto = Ponto::find($id);
+		$rotasValidas = $ponto->rotas;
+		$retorno = array();
+		
+		foreach($rotasValidas as $rota)
+		{
+			$pontos = array();
+			//echo $rota;
+			$pontosRota = $rota->pontos->all();
+			
+			//echo $pontosRota[0];
+			foreach($pontosRota as $pt)
+			{
+				$p = array(	'ponto_id' => $pt->id,
+							'ponto_nome' => $pt->nome,
+							'ponto_horario' => $pt->pivot->horario);
+				array_push($pontos,$p);
+			}
+			$count = 0;
+			foreach($pontos as $ponto){
+				if($ponto['ponto_id']==$id){
+					$count = $count + 1;
+				}
+			}
+			if($count == 1 and $pontos[0]['ponto_id']==$id){
+				continue;
+			}
+			$r = array('rota_id' => $rota->id,
+						'rota_onibus' => $rota->onibus,
+						'rota_motorista' => $rota->motorista,
+						'rota_via' => $rota->via,
+						'pontos' => $pontos);
+			$duplicated = FALSE;
+			foreach($retorno as $item){
+				if($item['rota_id'] == $rota->id){
+					$duplicated = TRUE;
+					break;
+				}
+			}
+			if($duplicated == FALSE) array_push($retorno,$r);
+		}
+		return $retorno;
+		
+	}
+
 }

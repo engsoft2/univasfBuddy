@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< HEAD
+=======
+
+use App\Cardapio;
+>>>>>>> 4abfdb562048aa41ae35d8fb0e4266e69acbe954
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
 class CardapioController extends Controller
 {
+<<<<<<< HEAD
     	// deslocar essa função para o controller da tabela Cardápio
 public function getHistorico(Request $request)
     {
@@ -285,4 +291,7 @@ public function getHistorico(Request $request)
     {
     	return view('layouts.criar-cardapio');
     }
+=======
+    //
+>>>>>>> 4abfdb562048aa41ae35d8fb0e4266e69acbe954
 }

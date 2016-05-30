@@ -17,8 +17,10 @@ Route::get('/', function () {
 
 Route::get('/paradas/{origem}', [
     'uses' => 'RotaController@getParadas',
-    'as' => 'parada'
+    'as'   => 'parada',
 ]);
+
+Route::get('/paradas', 'RotaController@showTodasParadas');
 
 Route::get('/rotas/{id}',
 ['uses' => 'RotaController@showParadasDaRota']);
@@ -28,6 +30,7 @@ Route::get('/rotas/',
 
 Route::get('/rotasAPI/{id}', //este id eh o id do ponto destino, nao eh o id da rota. Essa funcao retorna todas as rotas nas quais esse ponto faz parte
 ['uses' => 'RotaController@getRotasParaDestino']);
+<<<<<<< HEAD
 
 Route::get('/admin', [
     'uses' => 'CardapioController@getDashboard',
@@ -38,3 +41,5 @@ Route::get('/historico-cardapios', [
     'uses' => 'CardapioController@getHistorico',
     'as' => 'historico'
 ]);
+=======
+>>>>>>> 4abfdb562048aa41ae35d8fb0e4266e69acbe954

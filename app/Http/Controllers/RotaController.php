@@ -93,12 +93,28 @@ class RotaController extends Controller
 							'ponto_horario' => $pt->pivot->horario);
 				array_push($pontos,$p);
 			}
+			$count = 0;
+			foreach($pontos as $ponto){
+				if($ponto['ponto_id']==$id){
+					$count = $count + 1;
+				}
+			}
+			if($count == 1 and $pontos[0]['ponto_id']==$id){
+				continue;
+			}
 			$r = array('rota_id' => $rota->id,
 						'rota_onibus' => $rota->onibus,
 						'rota_motorista' => $rota->motorista,
 						'rota_via' => $rota->via,
 						'pontos' => $pontos);
-			array_push($retorno,$r);
+			$duplicated = FALSE;
+			foreach($retorno as $item){
+				if($item['rota_id'] == $rota->id){
+					$duplicated = TRUE;
+					break;
+				}
+			}
+			if($duplicated == FALSE) array_push($retorno,$r);
 		}
 		return $retorno;
 		

@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreatePontosTable extends Migration
 {
@@ -15,6 +15,8 @@ class CreatePontosTable extends Migration
         Schema::create('pontos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome');
+            $table->decimal('lat', 20, 17);
+            $table->decimal('lng', 20, 17);
             $table->timestamps();
         });
     }

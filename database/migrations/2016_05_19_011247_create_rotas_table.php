@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateRotasTable extends Migration
 {
@@ -19,7 +19,6 @@ class CreateRotasTable extends Migration
             $table->string('via');
             $table->timestamps();
         });
-
     }
 
     /**

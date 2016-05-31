@@ -66,17 +66,17 @@ class RotaController extends Controller
 
             foreach ($pontosRota as $pt) {
                 $p = ['id'        => $pt->id,
-                  'name'      => $pt->nome,
-                  'time'      => $pt->pivot->horario, ];
+                  'name'          => $pt->nome,
+                  'time'          => $pt->pivot->horario, ];
 
                 array_push($pontos, $p);
             }
 
             $r = ['id'             => $rota->id,
-                'bus'            => $rota->onibus,
-                'driver'         => $rota->motorista,
-                'way'            => $rota->via,
-                'stops'          => $pontos, ];
+                'bus'              => $rota->onibus,
+                'driver'           => $rota->motorista,
+                'way'              => $rota->via,
+                'stops'            => $pontos, ];
 
             array_push($retorno, $r);
         }

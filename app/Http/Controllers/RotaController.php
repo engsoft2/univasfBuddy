@@ -2,13 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\ Ponto;
+use App\Ponto;
 use App\Rota;
-
-class ret
-{
-    public $id = '';
-}
 
 class RotaController extends Controller
 {
@@ -42,13 +37,14 @@ class RotaController extends Controller
         $retorno = [];
 
         foreach ($rotas as $rota) {
-            $ret = new ret();
-            $ret->id = $rota->id;
-            $ret->bus = $rota->onibus;
-            $ret->way = $rota->via;
+            $r = [
+              'id'    => $rota->id,
+              'bus'   => $rota->onibus,
+              'way'   => $rota->via,
+              'stops' => $this->showParadasDaRota($rota->id)
+            ];
 
-            $ret->stops = $this->showParadasDaRota($rota->id);
-            array_push($retorno, $ret);
+            array_push($retorno, $r);
         }
 
         return $retorno;

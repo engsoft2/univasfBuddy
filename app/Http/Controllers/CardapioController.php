@@ -10,5 +10,8 @@ use App\Http\Requests;
 
 class CardapioController extends Controller
 {
-    //
+    public function getCardapios($dt_start,$dt_end)
+    {
+        return $dt_start;
+    }
 }

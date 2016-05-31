@@ -11,18 +11,6 @@ class ret
 	public $id = "";
 }
 
-class parada
-{
-    public $nome = '';
-    public $horario = '';
-}
-
-class RotaParada
-{
-    public $rota_id = '';
-    public $rota_nome = '';
-}
-
 class RotaController extends Controller
 {
     public function getParadas(Request $request)
@@ -46,8 +34,8 @@ class RotaController extends Controller
 	public function showParadasDaRota($id)
 	{
 		$rota = Rota::find($id);
-
 		$retorno = [];
+
 		foreach($rota->pontos as $ponto) {
 			$p = array(
 				'rota_id'	=> $ponto->pivot->rota_id,
@@ -56,17 +44,17 @@ class RotaController extends Controller
     		'lat' 		=> $ponto->lat,
     		'lng' 		=> $ponto->lng,
     		'time' 		=> $ponto->pivot->horario);
-			array_push($retorno,$p);
+			array_push($retorno, $p);
 		}
+
 		return $retorno;
 	}
 
 	public function showTodasRotas()
 	{
-
-		$retornoArray = array();
-
 		$rotas = Rota::all();
+		$retorno = [];
+
 		foreach($rotas as $rota)
 		{
 			$ret = new ret();
@@ -75,9 +63,9 @@ class RotaController extends Controller
 			$ret->way = $rota->via;
 
 			$ret->stops = $this->showParadasDaRota($rota->id);
-			array_push($retornoArray,$ret);
+			array_push($retorno, $ret);
 		}
-		return $retornoArray;
+		return $retorno;
 	}
 
   public function getRotasParaDestino($id)
@@ -91,11 +79,11 @@ class RotaController extends Controller
           $pontosRota = $rota->pontos->all();
 
           foreach ($pontosRota as $pt) {
-              $p = ['id'		=> $pt->id,
-                    'name'	=> $pt->nome,
-                    'time' 	=> $pt->pivot->horario];
+            $p = ['id'		=> $pt->id,
+                  'name'	=> $pt->nome,
+                  'time' 	=> $pt->pivot->horario];
 
-              array_push($pontos, $p);
+            array_push($pontos, $p);
           }
 
           $r = ['id'			=> $rota->id,

@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Rota;
 use App\Ponto;
+use App\Rota;
 use Illuminate\Console\Command;
 
 class ImportarRotas extends Command
@@ -24,6 +24,7 @@ class ImportarRotas extends Command
 
     protected $rota = null;
     protected $ponto = null;
+
     /**
      * Create a new command instance.
      *
@@ -34,20 +35,20 @@ class ImportarRotas extends Command
         parent::__construct();
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
+     /**
+      * Execute the console command.
+      *
+      * @return mixed
+      */
      public function handle()
      {
-       $path =  base_path($this->argument('csv'));
+         $path = base_path($this->argument('csv'));
        // Reference: http://php.net/manual/en/function.fgetcsv.php
-       if (($handle = fopen($path, "r")) !== FALSE) {
-         while (($data = fgetcsv($handle, 100, ",")) !== FALSE) {
-           switch ($data[0]) {
+       if (($handle = fopen($path, 'r')) !== false) {
+           while (($data = fgetcsv($handle, 100, ',')) !== false) {
+               switch ($data[0]) {
              case 'Motorista':
-               $this->rota = new Rota;
+               $this->rota = new Rota();
                $this->rota->motorista = $data[1];
                break;
              case 'Ônibus':
@@ -63,9 +64,9 @@ class ImportarRotas extends Command
                                             ]);
                $this->rota->pontos()->attach($ponto, ['horario' => $data[0]]);
            }
-         }
-         fclose($handle);
+           }
+           fclose($handle);
        }
-       $this->info('As tabelas foram preenchidas!');
+         $this->info('As tabelas foram preenchidas!');
      }
 }

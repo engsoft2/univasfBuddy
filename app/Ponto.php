@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ponto extends Model
 {
-	protected $fillable = ['nome', 'lat', 'lng'];
+	protected $fillable = ['name', 'lat', 'lng'];
 
     public function rotas()
     {

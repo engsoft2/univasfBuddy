@@ -18,7 +18,7 @@ class CardapioController extends Controller
 
     public function store(Request $request)
     {
-        Cardapio::firstOrCreate(['date'         => $request->date,
+        $cardapio = Cardapio::firstOrCreate(['date'         => $request->date,
                                 'type'          => $request->type,
                                 'sld_crua'      => $request->sld_crua,
                                 'sld_cozida'    => $request->sld_cozida,
@@ -31,11 +31,12 @@ class CardapioController extends Controller
                                 'sopa'          => $request->sopa,
                                 'bebida'        => $request->bebida, ]
                                 );
+        return $cardapio;
     }
 
     public function update(Request $request, $id)
     {
-        Cardapio::where('id', $id)->update([
+        $cardapio = Cardapio::where('id', $id)->update([
                                 'date'          => $request->date,
                                 'type'          => $request->type,
                                 'sld_crua'      => $request->sld_crua,
@@ -49,5 +50,6 @@ class CardapioController extends Controller
                                 'sopa'          => $request->sopa,
                                 'bebida'        => $request->bebida, ]
                                 );
+        return $cardapio;
     }
 }

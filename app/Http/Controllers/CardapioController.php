@@ -19,18 +19,19 @@ class CardapioController extends Controller
     public function store(Request $request)
     {
         $cardapio = Cardapio::firstOrCreate(['date'         => $request->date,
-                                'type'          => $request->type,
-                                'sld_crua'      => $request->sld_crua,
-                                'sld_cozida'    => $request->sld_cozida,
-                                'prt_principal' => $request->prt_principal,
-                                'guarnicao'     => $request->guarnicao,
-                                'cereal'        => $request->cereal,
-                                'leguminosa'    => $request->leguminosa,
-                                'vegetariano'   => $request->vegetariano,
-                                'sobremesa'     => $request->sobremesa,
-                                'sopa'          => $request->sopa,
-                                'bebida'        => $request->bebida, ]
+                                'type'                      => $request->type,
+                                'sld_crua'                  => $request->sld_crua,
+                                'sld_cozida'                => $request->sld_cozida,
+                                'prt_principal'             => $request->prt_principal,
+                                'guarnicao'                 => $request->guarnicao,
+                                'cereal'                    => $request->cereal,
+                                'leguminosa'                => $request->leguminosa,
+                                'vegetariano'               => $request->vegetariano,
+                                'sobremesa'                 => $request->sobremesa,
+                                'sopa'                      => $request->sopa,
+                                'bebida'                    => $request->bebida, ]
                                 );
+
         return $cardapio;
     }
 
@@ -50,6 +51,7 @@ class CardapioController extends Controller
                                 'sopa'          => $request->sopa,
                                 'bebida'        => $request->bebida, ]
                                 );
+
         return $cardapio;
     }
 }

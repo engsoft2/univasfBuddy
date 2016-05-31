@@ -4,84 +4,83 @@ namespace App\Http\Controllers;
 
 use App\ Ponto;
 use App\Rota;
-use Illuminate\Http\Request;
 
 class ret
 {
-	public $id = "";
+    public $id = '';
 }
 
 class RotaController extends Controller
 {
-  public function showTodasParadas()
-  {
-      return Ponto::all();
-  }
+    public function showTodasParadas()
+    {
+        return Ponto::all();
+    }
 
-	public function showParadasDaRota($id)
-	{
-		$rota = Rota::find($id);
-		$retorno = [];
+    public function showParadasDaRota($id)
+    {
+        $rota = Rota::find($id);
+        $retorno = [];
 
-		foreach($rota->pontos as $ponto) {
-			$p = array(
-				'rota_id'	=> $ponto->pivot->rota_id,
-				'id' 			=> $ponto->id,
-    		'name' 		=> $ponto->name,
-    		'lat' 		=> $ponto->lat,
-    		'lng' 		=> $ponto->lng,
-    		'time' 		=> $ponto->pivot->horario);
-			array_push($retorno, $p);
-		}
+        foreach ($rota->pontos as $ponto) {
+            $p = [
+                'rota_id'       => $ponto->pivot->rota_id,
+                'id'            => $ponto->id,
+            'name'              => $ponto->name,
+            'lat'               => $ponto->lat,
+            'lng'               => $ponto->lng,
+            'time'              => $ponto->pivot->horario, ];
+            array_push($retorno, $p);
+        }
 
-		return $retorno;
-	}
+        return $retorno;
+    }
 
-	public function showTodasRotas()
-	{
-		$rotas = Rota::all();
-		$retorno = [];
+    public function showTodasRotas()
+    {
+        $rotas = Rota::all();
+        $retorno = [];
 
-		foreach($rotas as $rota)
-		{
-			$ret = new ret();
-			$ret->id = $rota->id;
-			$ret->bus = $rota->onibus;
-			$ret->way = $rota->via;
+        foreach ($rotas as $rota) {
+            $ret = new ret();
+            $ret->id = $rota->id;
+            $ret->bus = $rota->onibus;
+            $ret->way = $rota->via;
 
-			$ret->stops = $this->showParadasDaRota($rota->id);
-			array_push($retorno, $ret);
-		}
-		return $retorno;
-	}
+            $ret->stops = $this->showParadasDaRota($rota->id);
+            array_push($retorno, $ret);
+        }
 
-  public function getRotasParaDestino($id)
-  {
-      $ponto = Ponto::find($id);
-      $rotasValidas = $ponto->rotas;
-      $retorno = [];
+        return $retorno;
+    }
 
-      foreach ($rotasValidas as $rota) {
-          $pontos = [];
-          $pontosRota = $rota->pontos->all();
+    public function getRotasParaDestino($id)
+    {
+        $ponto = Ponto::find($id);
+        $rotasValidas = $ponto->rotas;
+        $retorno = [];
 
-          foreach ($pontosRota as $pt) {
-            $p = ['id'		=> $pt->id,
-                  'name'	=> $pt->nome,
-                  'time' 	=> $pt->pivot->horario];
+        foreach ($rotasValidas as $rota) {
+            $pontos = [];
+            $pontosRota = $rota->pontos->all();
 
-            array_push($pontos, $p);
-          }
+            foreach ($pontosRota as $pt) {
+                $p = ['id'        => $pt->id,
+                  'name'      => $pt->nome,
+                  'time'      => $pt->pivot->horario, ];
 
-          $r = ['id'			=> $rota->id,
-                'bus'			=> $rota->onibus,
-                'driver'	=> $rota->motorista,
-                'way'			=> $rota->via,
-                'stops'		=> $pontos];
+                array_push($pontos, $p);
+            }
 
-          array_push($retorno, $r);
-      }
+            $r = ['id'             => $rota->id,
+                'bus'            => $rota->onibus,
+                'driver'         => $rota->motorista,
+                'way'            => $rota->via,
+                'stops'          => $pontos, ];
 
-      return $retorno;
-  }
+            array_push($retorno, $r);
+        }
+
+        return $retorno;
+    }
 }

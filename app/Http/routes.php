@@ -25,3 +25,6 @@ Route::get('/rotas/',
 
 Route::get('/rotasAPI/{id}', //este id eh o id do ponto destino, nao eh o id da rota. Essa funcao retorna todas as rotas nas quais esse ponto faz parte
 ['uses' => 'RotaController@getRotasParaDestino']);
+
+Route::get('/cardapioAPI/{dt_start}/{dt_end}',
+['uses' => 'CardapioController@getCardapios'])->where(['dt_start' => '[0-9]{2}-[0-9]{2}-[0-9]{4}', 'dt_end' => '[0-9]{2}-[0-9]{2}-[0-9]{4}']);

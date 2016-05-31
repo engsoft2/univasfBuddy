@@ -41,7 +41,7 @@ class RotaController extends Controller
               'id'    => $rota->id,
               'bus'   => $rota->onibus,
               'way'   => $rota->via,
-              'stops' => $this->showParadasDaRota($rota->id)
+              'stops' => $this->showParadasDaRota($rota->id),
             ];
 
             array_push($retorno, $r);

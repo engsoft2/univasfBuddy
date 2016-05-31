@@ -15,11 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/paradas/{origem}', [
-    'uses' => 'RotaController@getParadas',
-    'as'   => 'parada',
-]);
-
 Route::get('/paradas', 'RotaController@showTodasParadas');
 
 Route::get('/rotas/{id}',

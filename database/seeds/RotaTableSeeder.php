@@ -14,7 +14,6 @@ class RotaTableSeeder extends Seeder
         Excel::load('rotas.csv', function ($reader) {
 
             // reader methods
-
         });
     }
 }

@@ -46,7 +46,6 @@ class RotaController extends Controller
             ];
 
             array_push($retorno, $r);
-
         }
 
         return $retorno;

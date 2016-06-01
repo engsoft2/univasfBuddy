@@ -15,8 +15,8 @@ class CreatePontosTable extends Migration
         Schema::create('pontos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->decimal('lat', 20, 17);
-            $table->decimal('lng', 20, 17);
+            $table->decimal('lat', 11, 8);
+            $table->decimal('lng', 11, 8);
             $table->timestamps();
         });
     }

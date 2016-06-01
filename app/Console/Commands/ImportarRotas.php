@@ -59,9 +59,7 @@ class ImportarRotas extends Command
                $this->rota->save();
                break;
              default:
-               $ponto = Ponto::firstOrCreate(['name' => $data[3],
-                                              // ,'lat'  => $data[4], 'lng'  => $data[5]
-                                            ]);
+               $ponto = Ponto::firstOrCreate(['name' => $data[3], 'lat'  => $data[4], 'lng'  => $data[5], ]);
                $this->rota->pontos()->attach($ponto, ['horario' => $data[0]]);
            }
            }

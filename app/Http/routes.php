@@ -14,7 +14,7 @@
 Route::get('/paradas', 'RotaController@showTodasParadas');
 
 Route::get('/', function () {
-  return view('welcome');
+    return view('welcome');
 })->name('home');
 
 Route::get('/rotas/{id}',
@@ -28,36 +28,36 @@ Route::get('/rotasAPI/{id}', //este id eh o id do ponto destino, nao eh o id da 
 
 Route::post('/signin', [
     'uses' => 'UserController@postSignIn',
-    'as' => 'signin'
+    'as'   => 'signin',
 ]);
 
 Route::get('/logout', [
     'uses' => 'UserController@getLogout',
-    'as' => 'logout'
+    'as'   => 'logout',
 ]);
 
 Route::get('/admin', [
-    'uses' => 'CardapioController@getDashboard',
-    'as' => 'dashboard',
-    'middleware' => 'auth'
+    'uses'       => 'CardapioController@getDashboard',
+    'as'         => 'dashboard',
+    'middleware' => 'auth',
 ]);
 
 Route::get('/criar-cardapio', [
-    'uses' => 'CardapioController@getCriarCardapio',
-    'as' => 'criar-cardapio',
-    'middleware' => 'auth'
+    'uses'       => 'CardapioController@getCriarCardapio',
+    'as'         => 'criar-cardapio',
+    'middleware' => 'auth',
 ]);
 
 Route::get('/cardapio', [
-    'uses' => 'CardapioController@getCardapio',
-    'as' => 'cardapio',
-    'middleware' => 'auth'
+    'uses'       => 'CardapioController@getCardapio',
+    'as'         => 'cardapio',
+    'middleware' => 'auth',
 ]);
 
 Route::get('/historico-cardapios', [
-    'uses' => 'CardapioController@getHistorico',
-    'as' => 'historico',
-    'middleware' => 'auth'
+    'uses'       => 'CardapioController@getHistorico',
+    'as'         => 'historico',
+    'middleware' => 'auth',
 ]);
 
 Route::get('/cardapioAPI/{dt_start}/{dt_end}',

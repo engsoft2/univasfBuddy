@@ -65,6 +65,8 @@ class RotaController extends Controller
                 $p = [
                   'id'    => $pt->id,
                   'name'  => $pt->name,
+                  'lat'   => $pt->lat,
+                  'lng'   => $pt->lng,
                   'time'  => $pt->pivot->horario, ];
                 array_push($pontos, $p);
             }
@@ -82,7 +84,7 @@ class RotaController extends Controller
                 'id'      => $rota->id,
                 'bus'     => $rota->onibus,
                 'driver'  => $rota->motorista,
-                'driver'  => $rota->via,
+                'way'     => $rota->via,
                 'stops'   => $pontos, ];
 
             $duplicated = false;

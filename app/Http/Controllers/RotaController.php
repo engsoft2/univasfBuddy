@@ -92,7 +92,6 @@ class RotaController extends Controller
                     break;
                 }
             }
-
             if ($duplicated == false) {
                 array_push($retorno, $r);
             }

@@ -1,0 +1,22 @@
+{
+  "name": "univasf_buddy",
+  "description": "",
+  "main": "",
+  "authors": [
+    "julianasobreira <juliana.univasf@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/engsoft2/univasfBuddy",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "handsontable": "^0.25.0",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.37"
+  }
+}

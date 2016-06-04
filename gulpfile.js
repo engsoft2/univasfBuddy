@@ -13,15 +13,27 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
 	mix.scripts([
-    	'/../../../node_modules/jquery/dist/jquery.js',
-    	'/../../../node_modules/bootstrap/dist/js/bootstrap.js',
+      '/../../../bower_components/moment/min/moment.min.js',
+      '/../../../bower_components/moment/locale/pt-br.js',
+      '/../../../bower_components/jquery/dist/jquery.min.js',
+    	'/../../../bower_components/bootstrap/dist/js/bootstrap.min.js',
+      '/../../../bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+      '/../../../bower_components/handsontable/dist/handsontable.full.js',
+      '/../../../bower_components/form.validation/dist/js/formValidation.min.js',
+      '/../../../bower_components/form.validation/dist/js/framework/bootstrap.min.js',
        'app.js'
    	], 'public/js/app.js');
 
    	mix.styles([
-    	'/../../../node_modules/bootstrap/dist/css/bootstrap.css',
+    	'/../../../bower_components/bootstrap/dist/css/bootstrap.min.css',
+      '/../../../bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+      '/../../../bower_components/handsontable/dist/handsontable.full.css',
+      '/../../../bower_components/form.validation/dist/css/formValidation.min.css',
     	'app.css'
    	], 'public/css/app.css');
 
+    mix.copy('bower_components/bootstrap/dist/fonts', 'public/fonts');
+
     //mix.sass('app.scss');
 });
+

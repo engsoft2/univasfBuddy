@@ -1,72 +1,42 @@
-<div class="modal fade" tabindex="-1" role="dialog" id="edit-modal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Refeição</h4>
-        </div>
-        <div class="modal-body">
-            <form>
-                <div class="form-group">
-                  <label for="sel1">Selecione o dia</label>
-                  <select class="form-control" id="dia">
-                    <option>Segunda-Feira</option>
-                    <option>Terça-Feira</option>
-                    <option>Quarta-Feira</option>
-                    <option>Quinta-Feira</option>
-                    <option>Sexta-Feira</option>
-                  </select>
+<div class="modal fade" tabindex="-1" role="dialog" id="save-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Salvar Cardápio</h4>
+      </div>
+      <div class="modal-body">
+          <form id="dataForm" class="form-horizontal">
+              <div class="form-group">
+                <label class="col-xs-3 control-label">Data de Início</label>
+                <div class="col-xs-7">
+                    <div class="input-group" class="datetimepicker">
+                        <input type="text" class="form-control" name="dataInicio" id='dataInicio'/>
+                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="acompanhamento">Acompanhamento</label>
-                    <input type="text" name="acompanhamento" class="form-control" id="acompanhamento">       
-                </div>
-                <div class="form-group">
-                    <label for="prato-principal">Prato Principal</label>
-                    <input type="text" name="prato-principal" class="form-control" id="prato-principal">       
-                </div>
-                <div class="form-group">
-                    <label for="complemento">Complemento</label>
-                    <input type="text" name="complemento" class="form-control" id="complemento">       
-                </div>
-                <div class="form-group">
-                    <label for="salada">Salada</label>
-                    <input type="text" name="salada" class="form-control" id="salada">       
-                </div>
-                <div class="form-group">
-                    <label for="sobremesa">Sobremesa</label>
-                    <input type="text" name="sobremesa" class="form-control" id="sobremesa">       
-                </div>
+              </div>
 
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-          <button type="button" class="btn btn-primary" id="modal-save-refeicao">Incluir</button>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal --> 
-
-  <div class="modal fade" tabindex="-1" role="dialog" id="save-modal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Salvar Cardápio</h4>
-        </div>
-        <div class="modal-body">
-            <form>
-                <div class="form-group">
-                    <label for="acompanhamento">Data</label>
-                    <input type="text" name="acompanhamento" class="form-control">       
+              <div class="form-group">
+                <label class="col-xs-3 control-label">Data de Término</label>
+                <div class="col-xs-7">
+                    <div class="input-group" class="datetimepicker">
+                        <input type="text" class="form-control" name="dataFim" id='dataFim'/>
+                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                    </div>
                 </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-          <button type="button" class="btn btn-primary">Finalizar</button>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal --> 
+              </div>
+
+              <div class="form-group">
+                <div class="col-xs-5 col-xs-offset-3"> 
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                  <button type="submit" class="btn btn-primary" id="save-cardapio">Salvar</button>
+                </div>
+              </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal --> 

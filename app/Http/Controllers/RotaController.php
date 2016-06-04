@@ -7,6 +7,42 @@ use App\Rota;
 
 class RotaController extends Controller
 {
+    private static function _insertUniqueRoute($array, $route){
+        /*input: Array of routes and route
+        returns: List updated;
+        */
+        $duplicated = false;
+            foreach ($array as $item) {
+                if ($item['id'] == $route['id']) {
+                    $duplicated = true;
+                    break;
+                }
+            }
+            if ($duplicated == false) {
+                array_push($array, $route);
+            }
+         return $array;
+    }
+    
+    private static function _isOriginOfRoute($stopsOfRoute,$id)
+    {
+        /*input: $All stops from Route and $id of stop
+        returns: Boolean if it is only the origin of route;
+        */
+        $count = 0;
+        foreach ($stopsOfRoute as $stop) {
+            if ($stop['id'] == $id) 
+            {
+                $count = $count + 1;
+            }
+        }
+        if ($count == 1 and $stopsOfRoute[0]['id'] == $id) 
+        {
+            return TRUE;
+        }
+        return FALSE;
+    }
+    
     public function showTodasParadas()
     {
         return Ponto::all();
@@ -74,7 +110,7 @@ class RotaController extends Controller
                   'time'  => $pt->pivot->horario, ];
                 array_push($pontos, $p);
             }
-            if(isOriginOfRoute($pontos,$id))
+            if(RotaController::_isOriginOfRoute($pontos,$id)==TRUE)
             {
                 continue; //The point is the origin of the route, and route does not return to this point. So it's impossible to this point to be a destination.
             }
@@ -86,46 +122,12 @@ class RotaController extends Controller
                 'way'     => $rota->via,
                 'stops'   => $pontos, ];
                 
-            $retorno = insertUniqueRoute($retorno,$r); //Inserts route only if is not in the list already
+            $retorno = RotaController::_insertUniqueRoute($retorno,$r); //Inserts route only if is not in the list already
             
         }
 
         return $retorno;
     }
     
-    function insertUniqueRoute($array, $route){
-        /*input: Array of routes and route
-        returns: List updated;
-        */
-        $duplicated = false;
-            foreach ($array as $item) {
-                if ($item['id'] == $route['id']) {
-                    $duplicated = true;
-                    break;
-                }
-            }
-            if ($duplicated == false) {
-                array_push($array, $r);
-            }
-         return $array;
-    }
     
-    function isOriginOfRoute($stopsOfRoute,$id)
-    {
-        /*input: $All stops from Route and $id of stop
-        returns: Boolean if it is only the origin of route;
-        */
-        $count = 0;
-        foreach ($stopsOfRoute as $stop) {
-            if ($stop['id'] == $id) 
-            {
-                $count = $count + 1;
-            }
-        }
-        if ($count == 1 and $pontos[0]['id'] == $id) 
-        {
-            return TRUE;
-        }
-        return FALSE;
-    }
 }

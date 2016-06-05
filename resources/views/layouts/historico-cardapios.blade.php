@@ -8,31 +8,49 @@
 @endsection
 
 @section('content')
-  <h2>Cardápios Anteriores</h2>
-  <div class="container"> 
-    <!-- criar uma tabela para almoço e para janta -->
-    <!-- lembrar de mudar para acessar collections-->
-    <div class="table-responsive">
-      <table class="table table-bordered table-striped">
-          <thead>
-              <tr>
-                  <th>Início</th>
-                  <th>Fim</th>
-                  <th>Ver</th>
-              </tr>
-          </thead>
-          @foreach($datas as $cardapio)
-          <tbody>
-            <tr>
-              <td>{{$cardapio['dataInicio']}}</td>
-              <td>{{$cardapio['dataFim']}}</td>
-              <td><a href="{{ route('cardapio') }}">Ver</a></td>
-            </tr>
-          </tbody>
-                  
-          @endforeach 
-      </table>  
-    </div>     
-  </div>    
+  <div class="container-fluid">
+    <h2>Cardápios Anteriores</h2>
+    <div class="historico-container">
+      <div id="jsGrid"></div>
+    </div>
+  </div>       
+  
+  @section('scripts')
+    var clients = [
+      @foreach($datas as $cardapio)
+        { "Data de Início": "{{$cardapio['dataInicio']}}", "Data de Término": "{{$cardapio['dataFim']}}" },                  
+      @endforeach 
+    ];
+
+    $(function() {
+      jsGrid.locale("pt-br");
+
+      $("#jsGrid").jsGrid({
+          width: "100%",
+   
+          //filtering: true,
+          sorting: true,
+          paging: true,
+          autoload: true,
+   
+          pageSize: 15,
+          pageButtonCount: 5,
+   
+          deleteConfirm: "Do you really want to delete the client?",
+
+          data: clients,
+
+          rowClick: function(args) {
+            console.log(args.item);
+          },
+
+          fields: [
+              { name: "Data de Início", type: "date"},
+              { name: "Data de Término", type: "date"}
+          ]
+      });
+     
+    });
+  @stop
 
 @endsection

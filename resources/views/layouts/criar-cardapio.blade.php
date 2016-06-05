@@ -8,22 +8,24 @@
 @endsection
 
 @section('content')
-  <h2>Criar Cardápio</h2>
-  <!--<div class="cardapio-container">-->
-    <div class="almoco-container">
+  <div class="container-fluid">
+    <h2>Criar Cardápio</h2>
+
+    <div class="refeicao-container">
       <h3>Almoço</h3>
       <div id="lunch"></div>
-
     </div>
 
-    <div class="janta-container">
+    <div class="refeicao-container">
       <h3>Jantar</h3>
       <div id="dinner"></div>
+
+      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#save-modal">
+        Salvar
+      </button>
     </div>
-  <!--</div>-->
-  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#save-modal">
-    Salvar
-  </button>
+
+  </div>
 
   @section('scripts')
     $(document).ready(function() {  
@@ -146,6 +148,7 @@
               type: 'text',
               width: 100
           }      
+
       ],
       autoWrapRow: true,
       rowHeaders: [
@@ -224,7 +227,6 @@
           }      
 
       ],
-      width: 1300,
       autoWrapRow: true,
       rowHeaders: [
           'Segunda-Feira',

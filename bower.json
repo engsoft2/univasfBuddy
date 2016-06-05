@@ -17,6 +17,7 @@
   "dependencies": {
     "bootstrap": "^3.3.6",
     "handsontable": "^0.25.0",
-    "eonasdan-bootstrap-datetimepicker": "^4.17.37"
+    "eonasdan-bootstrap-datetimepicker": "^4.17.37",
+    "jsgrid": "js-grid#^1.4.1"
   }
 }

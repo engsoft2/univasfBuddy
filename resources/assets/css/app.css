@@ -1,9 +1,31 @@
-.cardapio-container{
-	border: 1px solid #DDD;
-	border-radius: 10px;
-	padding: 20px;
+h2 {
+	text-align: center;
+	margin: 30px;
+}
+
+h3 {
+	margin: 0 0 10px 0;
+}
+
+.historico-container {
+	width: 700px;
+	margin: 0 auto;
+}
+
+.refeicao-container {
+	width: 	1470px;
+	margin: 20px auto;
+}
+
+.refeicao-container button {
+	margin: 20px 0;
 }
 
 .handsontable col.rowHeader {
     width: 120px;
+}
+
+.jsgrid-grid-header,
+.jsgrid-grid-body{
+  overflow: auto;
 }

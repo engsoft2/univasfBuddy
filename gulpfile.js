@@ -20,6 +20,8 @@ elixir(function(mix) {
       '/../../../bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
       '/../../../bower_components/handsontable/dist/handsontable.full.js',
       '/../../../bower_components/form.validation/dist/js/formValidation.min.js',
+      '/../../../bower_components/jsgrid/dist/jsgrid.min.js',
+      '/../../../bower_components/jsgrid/src/i18n/pt-br.js',
       '/../../../bower_components/form.validation/dist/js/framework/bootstrap.min.js',
        'app.js'
    	], 'public/js/app.js');
@@ -28,6 +30,8 @@ elixir(function(mix) {
     	'/../../../bower_components/bootstrap/dist/css/bootstrap.min.css',
       '/../../../bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
       '/../../../bower_components/handsontable/dist/handsontable.full.css',
+      '/../../../bower_components/jsgrid/dist/jsgrid.min.css',
+      '/../../../bower_components/jsgrid/dist/jsgrid-theme.min.css',
       '/../../../bower_components/form.validation/dist/css/formValidation.min.css',
     	'app.css'
    	], 'public/css/app.css');

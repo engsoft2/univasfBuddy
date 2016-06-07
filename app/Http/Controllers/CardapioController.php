@@ -64,25 +64,25 @@ class CardapioController extends Controller
         print_r($cardapios);
     }
 
-    public function store(Request $request)
+    public function store(Request $request) //problema na data...
     {
-        $dayOfWeek = 0;
-        $meals = array();
+        $lunchs = array();
+        $dinners = array();
         $startDate = DateTime::createFromFormat('d/m/Y',$request->startDate);
         $endDate = DateTime::createFromFormat('d/m/Y',$request->endDate);
-
+        echo("<script>console.log('PHP: ".json_encode($startDate)."');</script>");
+        $currentDate = $startDate;
         foreach($request->lunch as $meal){
-          $currentDate = $startDate->add(new DateInterval('P'.$dayOfWeek.'D'));
-          array_push($meals,Cardapio::parseLunch($meal,$currentDate,0));//tipo 0: almoço
-          $dayOfWeek += 1;
+          array_push($lunchs,Cardapio::parseLunch($meal,$currentDate,0));//tipo 0: almoço
+          $currentDate = $currentDate->add(new DateInterval('P1D'));
         }
-        $dayOfWeek = 0;
+        $currentDate = $startDate;
         foreach($request->dinner as $meal){
-          $currentDate = $startDate->add(new DateInterval('P'.$dayOfWeek.'D'));
-          array_push($meals,Cardapio::parseDinner($meal,$currentDate,1));//tipo 1: jantar
-          $dayOfWeek += 1;
+          array_push($dinners,Cardapio::parseDinner($meal,$currentDate,1));//tipo 1: jantar
+          $currentDate = $currentDate->add(new DateInterval('P1D'));
         }
-        $cardapio = Cardapio::insert($meals);
+        $cardapio = Cardapio::insert($lunchs);
+        $cardapio = Cardapio::insert($dinners);
         /*
         $cardapio = Cardapio::firstOrCreate(['date'         => $request->date,
             'type'                                              => $request->type,
@@ -99,7 +99,7 @@ class CardapioController extends Controller
           );
           */
           print_r($cardapio);
-          return $cardapio;
+          return response()->$cardapio;
     }
 
     public function update(Request $request, $id)

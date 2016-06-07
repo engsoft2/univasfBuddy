@@ -39,8 +39,12 @@ class CardapioController extends Controller
         //procura último cardápio e sua data de início e fim
         //e para o layout
         //return view('layouts.cardapio', ... );
-        $lastMeal = Cardapio::max('date')->first()->get();
-        $lastMeals = Cardapio::where('date','<=',$lastMeal->date)->where('date','=>',date($lastMeal->date,strtotime('-5 days'))->get();
+        $lastMeal = Cardapio::max('date');
+        print_r($lastMeal);
+        $lastMeals = Cardapio::where('date','<=',$lastMeal);
+        $firstDate = date($lastMeal,strtotime('-5 days'));
+        $lastMeals = $lastMeals->where('date','=>',$firstDate);
+        //return ($lastMeal);
         return view('layouts.cardapio',['cardapios'=>$lastMeals]);
     }
     /* Função Store */
@@ -51,12 +55,12 @@ class CardapioController extends Controller
         return response()->json(['start' => $request->startDate, 'end' => $request->endDate, 'lunch' => $request->lunch, 'dinner' => $request->dinner]);
     }
 
-    public function getCardapios($stardDate,$endDate)
+    public function getCardapios($startDate,$endDate)
     {
         $startDate = DateTime::createFromFormat('d/m/Y',$startDate);
         $endDate = DateTime::createFromFormat('d/m/Y',$endDate);
         $cardapios = Cardapio::where('date', '>=', $startDate)->where('date', '<=', $endDate);
-        print_r($cardapios);
+        //print_r($cardapios);
         return $cardapios;
     }
 

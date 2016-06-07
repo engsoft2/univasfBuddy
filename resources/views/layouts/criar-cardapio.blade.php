@@ -29,7 +29,7 @@
 
   @section('scripts')
 
-    $(document).ready(function() {  
+    $(document).ready(function() {
       $('#dataForm').formValidation({
           framework: 'bootstrap',
           excluded: ':disabled',
@@ -72,10 +72,10 @@
           method: 'POST',
           url: '{{ route('salvar-cardapio') }}',
           data: {
-            startDate: $('#dataInicio').val(), 
-            endDate: $('#dataFim').val(), 
-            lunch: lunch.getData(), 
-            dinner: dinner.getData(), 
+            startDate: $('#dataInicio').val(),
+            endDate: $('#dataFim').val(),
+            lunch: lunch.getData(),
+            dinner: dinner.getData(),
             _token: '{{ Session::token() }}'
           }
         })
@@ -103,7 +103,7 @@
       {},
       {},
       {},
-      {}  
+      {}
     ];
 
     var lunchElement = document.querySelector('#lunch');
@@ -155,7 +155,7 @@
               data: 'suco',
               type: 'text',
               width: 100
-          }      
+          }
 
       ],
       autoWrapRow: true,
@@ -166,7 +166,7 @@
           'Quinta-Feira',
           'Sexta-feira'
       ],
-      colHeaders: [          
+      colHeaders: [
           'Salada Crua',
           'Salada Cozida',
           'Prato Principal',
@@ -222,7 +222,7 @@
               data: 'bebida',
               type: 'text',
               width: 150
-          }      
+          }
 
       ],
       autoWrapRow: true,

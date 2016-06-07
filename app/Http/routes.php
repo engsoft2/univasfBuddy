@@ -38,38 +38,38 @@ Route::get('/logout', [
 
 Route::get('/inicio', [
     'uses'       => 'CardapioController@inicio',
-    'as'         => 'inicio',
-    'middleware' => 'auth',
+    'as'         => 'inicio'/*,
+    'middleware' => 'auth',*/
 ]);
 
 Route::get('/criar-cardapio', [
     'uses'       => 'CardapioController@criarCardapio',
-    'as'         => 'criar-cardapio',
-    'middleware' => 'auth',
+    'as'         => 'criar-cardapio'/*,
+    'middleware' => 'auth',*/
 ]);
 
 Route::post('/salvar-cardapio', [
-    'uses'       => 'CardapioController@salvarCardapio',
-    'as'         => 'salvar-cardapio',
-    'middleware' => 'auth',
+    'uses'       => 'CardapioController@store',
+    'as'         => 'salvar-cardapio'/*,
+    'middleware' => 'auth',*/
 ]);
 
 Route::get('/editar-cardapio', [
     'uses'       => 'CardapioController@editarCardapio',
-    'as'         => 'editar-cardapio',
-    'middleware' => 'auth',
+    'as'         => 'editar-cardapio'/*,
+    'middleware' => 'auth',*/
 ]);
 
 Route::get('/cardapio/{date?}', [
     'uses'       => 'CardapioController@cardapio',
-    'as'         => 'cardapio',
-    'middleware' => 'auth',
+    'as'         => 'cardapio'/*,
+    'middleware' => 'auth',*/
 ]);
 
 Route::get('/historico-cardapios', [
     'uses'       => 'CardapioController@historico',
-    'as'         => 'historico',
-    'middleware' => 'auth',
+    'as'         => 'historico'/*,
+    'middleware' => 'auth',*/
 ]);
 
 Route::get('/cardapioAPI/{dt_start}/{dt_end}',

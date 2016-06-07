@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cardapio;
 use DateTime;
+use DateInterval;
 use Illuminate\Http\Request;
 
 class CardapioController extends Controller
@@ -37,7 +38,7 @@ class CardapioController extends Controller
 
     public function criarCardapio()
     {
-        return view('layouts.criar-cardapio');  
+        return view('layouts.criar-cardapio');
     }
 
     public function inicio()
@@ -52,7 +53,7 @@ class CardapioController extends Controller
     {
         //recebe lunch, dinner, startDate, endDate
         //salva no banco
-        return response()->json(['start' => $request->startDate, 'end' => $request->endDate, 'lunch' => $request->lunch, 'dinner' => $request->dinner]); 
+        return response()->json(['start' => $request->startDate, 'end' => $request->endDate, 'lunch' => $request->lunch, 'dinner' => $request->dinner]);
     }
 
     public function getCardapios($dt_start, $dt_end)
@@ -65,6 +66,24 @@ class CardapioController extends Controller
 
     public function store(Request $request)
     {
+        $dayOfWeek = 0;
+        $meals = array();
+        $startDate = DateTime::createFromFormat('d/m/Y',$request->startDate);
+        $endDate = DateTime::createFromFormat('d/m/Y',$request->endDate);
+
+        foreach($request->lunch as $meal){
+          $currentDate = $startDate->add(new DateInterval('P'.$dayOfWeek.'D'));
+          array_push($meals,Cardapio::parseLunch($meal,$currentDate,0));//tipo 0: almoço
+          $dayOfWeek += 1;
+        }
+        $dayOfWeek = 0;
+        foreach($request->dinner as $meal){
+          $currentDate = $startDate->add(new DateInterval('P'.$dayOfWeek.'D'));
+          array_push($meals,Cardapio::parseDinner($meal,$currentDate,1));//tipo 1: jantar
+          $dayOfWeek += 1;
+        }
+        $cardapio = Cardapio::insert($meals);
+        /*
         $cardapio = Cardapio::firstOrCreate(['date'         => $request->date,
             'type'                                              => $request->type,
             'sld_crua'                                          => $request->sld_crua,
@@ -78,8 +97,9 @@ class CardapioController extends Controller
             'sopa'                                              => $request->sopa,
             'bebida'                                            => $request->bebida, ]
           );
-
-        return $cardapio;
+          */
+          print_r($cardapio);
+          return $cardapio;
     }
 
     public function update(Request $request, $id)

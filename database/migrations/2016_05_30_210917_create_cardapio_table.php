@@ -28,6 +28,7 @@ class CreateCardapioTable extends Migration
             $table->text('bebida');
             //$table->timestamps();
         });
+        Schema::rename('cardapio', 'cardapios');
     }
 
     /**

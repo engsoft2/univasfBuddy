@@ -9,7 +9,7 @@ class Cardapio extends Model
     //
     public static function parseLunch($lunchArray, $startDate,$type){
       $return =
-          ['date'                                             => $startDate->format('Y-m-d'),
+          ['date'                                             => date_format($startDate,'Y-m-d'),
           'type'                                              => $type,
           'sld_crua'                                          => $lunchArray[0],
           'sld_cozida'                                        => $lunchArray[1],
@@ -24,7 +24,7 @@ class Cardapio extends Model
     }
     public static function parseDinner($dinnerArray, $startDate,$type){
       $return =
-          ['date'                                             => $startDate->format('Y-m-d'),
+          ['date'                                             => date_format($startDate,'Y-m-d'),
           'type'                                              => $type,
           'sld_crua'                                          => $dinnerArray[0],
           'prt_principal'                                     => $dinnerArray[1],

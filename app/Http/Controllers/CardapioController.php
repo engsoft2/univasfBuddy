@@ -64,7 +64,7 @@ class CardapioController extends Controller
         return $cardapios;
     }
 
-    public function store(Request $request) //problema na data...
+    public function store(Request $request)
     {
         $lunchs = array();
         $dinners = array();
@@ -74,12 +74,12 @@ class CardapioController extends Controller
         $currentDate = $startDate;
         foreach($request->lunch as $meal){
           array_push($lunchs,Cardapio::parseLunch($meal,$currentDate,0));//tipo 0: almoço
-          $currentDate = date($currentDate, strtotime('+1 day'));
+          $currentDate = $currentDate->add(new DateInterval('P1D'));
         }
-        $currentDate = $startDate;
+        $currentDate = DateTime::createFromFormat('d/m/Y',$request->startDate);
         foreach($request->dinner as $meal){
           array_push($dinners,Cardapio::parseDinner($meal,$currentDate,1));//tipo 1: jantar
-          $currentDate = date($currentDate, strtotime('+1 day'));
+          $currentDate = $currentDate->add(new DateInterval('P1D'));
         }
         $cardapio = Cardapio::insert($lunchs);
         $cardapio = Cardapio::insert($dinners);
@@ -99,7 +99,7 @@ class CardapioController extends Controller
           );
           */
           //print_r($cardapio);
-          return $cardapio;
+          return response()->json($cardapio);
     }
 
     public function update(Request $request, $id, $type, $date)

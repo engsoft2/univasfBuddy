@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-     	<a class="navbar-brand" href="{{route('dashboard')}}">
+     	<a class="navbar-brand" href="{{route('inicio')}}">
         	Restaurante Universitário
       	</a>
     </div>

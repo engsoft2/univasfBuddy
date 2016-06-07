@@ -41,7 +41,9 @@
           data: clients,
 
           rowClick: function(args) {
-            console.log(args.item);
+            var start = args.item["Data de Início"];
+            var end = args.item["Data de Término"];
+            window.location.href = "{{ route('cardapio') }}" + "?start=" + start + "&" + "end=" + end;
           },
 
           fields: [

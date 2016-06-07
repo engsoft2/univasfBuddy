@@ -1,6 +1,6 @@
 h2 {
 	text-align: center;
-	margin: 30px;
+	margin: 20px;
 }
 
 h3 {
@@ -14,11 +14,15 @@ h3 {
 
 .refeicao-container {
 	width: 	1470px;
-	margin: 20px auto;
+	margin: 15px auto;
 }
 
 .refeicao-container button {
-	margin: 20px 0;
+	margin: 10px 0;
+}
+
+#edit-cardapio{
+	margin: 10px 0;
 }
 
 .handsontable col.rowHeader {

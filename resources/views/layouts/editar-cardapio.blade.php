@@ -9,7 +9,7 @@
 
 @section('content')
   <div class="container-fluid">
-    <h2>Criar Cardápio</h2>
+    <h2>Editar Cardápio</h2>
 
     <div class="refeicao-container">
       <h3>Almoço</h3>
@@ -20,15 +20,14 @@
       <h3>Jantar</h3>
       <div id="dinner"></div>
 
-      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#save-modal" id="salvar-cardapio">
-        Salvar
+      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#save-modal">
+        Salvar Alterações
       </button>
     </div>
 
   </div>
 
   @section('scripts')
-
     $(document).ready(function() {  
       $('#dataForm').formValidation({
           framework: 'bootstrap',
@@ -64,25 +63,18 @@
             // and the FormValidation instance
             var fv = $form.data('formValidation');
 
-        //console.log(JSON.stringify({data: lunch.getData()}));
-        //console.log($('#dataInicio').val());
-        //console.log($('#dataFim').val());
+        console.log(JSON.stringify({data: lunch.getData()}));
+        console.log($('#dataInicio').val());
+        console.log($('#dataFim').val());
         $("#save-modal").modal('toggle');
-        $.ajax({
-          method: 'POST',
-          url: '{{ route('salvar-cardapio') }}',
-          data: {
-            startDate: $('#dataInicio').val(), 
-            endDate: $('#dataFim').val(), 
-            lunch: lunch.getData(), 
-            dinner: dinner.getData(), 
-            _token: '{{ Session::token() }}'
-          }
-        })
-        .done(function(msg){
-          window.location.href = '{{ route('inicio') }}'
-          //console.log(JSON.stringify(msg));
-         });
+        // $.ajax({
+        // method: 'POST',
+        // url: url,
+        // data: {date: date, lunch: lunch.getData(), dinner: dinner.getData(), _token: token}
+        // })
+        // .done(function(msg){
+        // console.log(msg['message']);
+        //  });
 
       });
 
@@ -98,18 +90,18 @@
         $('#dataForm').formValidation('revalidateField', 'dataFim');
       });
 
-  var dataObject = [
-      {},
-      {},
-      {},
-      {},
-      {}  
+    var lunch = [
+      {saladaCrua: 'Pepino, Alface e Cenoura', saladaCozida: 'Batata Doce, Berinjela e Vagem', pratoPrincipal: 'Costela Bovina ao Molho Barbecue / Filé de Frango na Chapa', guanicao: 'Macarrão ao molho de tomate / Farofa Simples', cereal: 'Arroz Branco/Integral', leguminosa: 'Feijão Preto', vegetariano: 'Suflê de Legumes Vegano', sobremesa: 'Laranja / Pudim', suco: 'Acerola'},
+      {saladaCrua: 'Pepino, Alface e Cenoura', saladaCozida: 'Batata Doce, Berinjela e Vagem', pratoPrincipal: 'Costela Bovina ao Molho Barbecue / Filé de Frango na Chapa', guanicao: 'Macarrão ao molho de tomate / Farofa Simples', cereal: 'Arroz Branco/Integral', leguminosa: 'Feijão Preto', vegetariano: 'Suflê de Legumes Vegano', sobremesa: 'Laranja / Pudim', suco: 'Acerola'},
+      {saladaCrua: 'Pepino, Alface e Cenoura', saladaCozida: 'Batata Doce, Berinjela e Vagem', pratoPrincipal: 'Costela Bovina ao Molho Barbecue / Filé de Frango na Chapa', guanicao: 'Macarrão ao molho de tomate / Farofa Simples', cereal: 'Arroz Branco/Integral', leguminosa: 'Feijão Preto', vegetariano: 'Suflê de Legumes Vegano', sobremesa: 'Laranja / Pudim', suco: 'Acerola'},
+      {saladaCrua: 'Pepino, Alface e Cenoura', saladaCozida: 'Batata Doce, Berinjela e Vagem', pratoPrincipal: 'Costela Bovina ao Molho Barbecue / Filé de Frango na Chapa', guanicao: 'Macarrão ao molho de tomate / Farofa Simples', cereal: 'Arroz Branco/Integral', leguminosa: 'Feijão Preto', vegetariano: 'Suflê de Legumes Vegano', sobremesa: 'Laranja / Pudim', suco: 'Acerola'},
+      {saladaCrua: 'Pepino, Alface e Cenoura', saladaCozida: 'Batata Doce, Berinjela e Vagem', pratoPrincipal: 'Costela Bovina ao Molho Barbecue / Filé de Frango na Chapa', guanicao: 'Macarrão ao molho de tomate / Farofa Simples', cereal: 'Arroz Branco/Integral', leguminosa: 'Feijão Preto', vegetariano: 'Suflê de Legumes Vegano', sobremesa: 'Laranja / Pudim', suco: 'Acerola'}
     ];
 
     var lunchElement = document.querySelector('#lunch');
     var luchElementContainer = lunchElement.parentNode;
     var luchSettings = {
-      data: dataObject,
+      data: lunch,
       columns: [
           {
               data: 'saladaCrua',
@@ -166,7 +158,7 @@
           'Quinta-Feira',
           'Sexta-feira'
       ],
-      colHeaders: [          
+      colHeaders: [
           'Salada Crua',
           'Salada Cozida',
           'Prato Principal',
@@ -183,10 +175,18 @@
 
     var lunch = new Handsontable(lunchElement, luchSettings);
 
+    var dinner = [
+      {saladaCruaCozida: 'Vagem, cenoura e beterraba', pratoPrincipal: 'Isca de frango empanado', guanicao: 'Cuscuz com carne', cereal: 'Arroz Branco/Integral' , vegetariano: 'Suflê de Legumes Vegano', sopa: 'Sopa de Feijão', bebida: 'Acerola'},
+      {saladaCruaCozida: 'Vagem, cenoura e beterraba', pratoPrincipal: 'Isca de frango empanado', guanicao: 'Cuscuz com carne', cereal: 'Arroz Branco/Integral' , vegetariano: 'Suflê de Legumes Vegano', sopa: 'Sopa de Feijão', bebida: 'Acerola'},
+      {saladaCruaCozida: 'Vagem, cenoura e beterraba', pratoPrincipal: 'Isca de frango empanado', guanicao: 'Cuscuz com carne', cereal: 'Arroz Branco/Integral' , vegetariano: 'Suflê de Legumes Vegano', sopa: 'Sopa de Feijão', bebida: 'Acerola'},
+      {saladaCruaCozida: 'Vagem, cenoura e beterraba', pratoPrincipal: 'Isca de frango empanado', guanicao: 'Cuscuz com carne', cereal: 'Arroz Branco/Integral' , vegetariano: 'Suflê de Legumes Vegano', sopa: 'Sopa de Feijão', bebida: 'Acerola'},
+      {saladaCruaCozida: 'Vagem, cenoura e beterraba', pratoPrincipal: 'Isca de frango empanado', guanicao: 'Cuscuz com carne', cereal: 'Arroz Branco/Integral' , vegetariano: 'Suflê de Legumes Vegano', sopa: 'Sopa de Feijão', bebida: 'Acerola'},
+    ];
+
     var dinnerElement = document.querySelector('#dinner');
     var dinnerElementContainer = dinnerElement.parentNode;
     var dinnerSettings = {
-      data: dataObject,
+      data: dinner,
       columns: [
           {
               data: 'saladaCruaCozida',
@@ -245,7 +245,6 @@
       manualRowResize: true,
       manualColumnResize: true
     };
-
 
     var dinner = new Handsontable(dinnerElement, dinnerSettings);
   });

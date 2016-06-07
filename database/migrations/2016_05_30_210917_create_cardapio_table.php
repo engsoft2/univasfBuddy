@@ -12,7 +12,7 @@ class CreateCardapioTable extends Migration
      */
     public function up()
     {
-        Schema::create('cardapio', function (Blueprint $table) {
+        Schema::create('cardapios', function (Blueprint $table) {
             $table->increments('id');
             $table->date('date');
             $table->integer('type'); //almoço ou jantar
@@ -28,7 +28,6 @@ class CreateCardapioTable extends Migration
             $table->text('bebida');
             //$table->timestamps();
         });
-        Schema::rename('cardapio', 'cardapios');
     }
 
     /**

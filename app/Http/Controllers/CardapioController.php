@@ -48,7 +48,7 @@ class CardapioController extends Controller
         //return view('layouts.cardapio', ... );
         return view('layouts.cardapio');
     }
-
+    /* Função Store*/
     public function salvarCardapio(Request $request)
     {
         //recebe lunch, dinner, startDate, endDate
@@ -62,6 +62,7 @@ class CardapioController extends Controller
         $dt_end = new DateTime($dt_end);
         $cardapios = Cardapio::whereDate('date', '>=', $dt_start->format('Y-m-d'))->whereDate('date', '<=', $dt_end->format('Y-m-d'));
         print_r($cardapios);
+        return $cardapios;
     }
 
     public function store(Request $request) //problema na data...
@@ -99,7 +100,7 @@ class CardapioController extends Controller
           );
           */
           print_r($cardapio);
-          return response()->$cardapio;
+          return $cardapio;
     }
 
     public function update(Request $request, $id)

@@ -40,7 +40,7 @@ class CardapioController extends Controller
         //e para o layout
         //return view('layouts.cardapio', ... );
         $lastMeal = Cardapio::max('date');
-        print_r($lastMeal);
+        //print_r($lastMeal);
         $lastMeals = Cardapio::where('date','<=',$lastMeal);
         $firstDate = date($lastMeal,strtotime('-5 days'));
         $lastMeals = $lastMeals->where('date','=>',$firstDate);

@@ -71,6 +71,12 @@ Route::get('/historico-cardapios', [
     'as'         => 'historico'/*,
     'middleware' => 'auth',*/
 ]);
+Route::get('/cardapio-index', [
+    'uses'       => 'CardapioController@index',
+    'as'         => 'index'/*,
+    'middleware' => 'auth',*/
+]);
 
+//Observar a regex: apenas datas no formato dd-mm-yyyy serão aceitas, no formato d-m-yyyy será retornado 404 not found.
 Route::get('/cardapio/{startDate}/{endDate}',
 ['uses' => 'CardapioController@getCardapios'])->where(['startDate' => '[0-9]{2}-[0-9]{2}-[0-9]{4}', 'endDate' => '[0-9]{2}-[0-9]{2}-[0-9]{4}']);

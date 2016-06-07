@@ -23,6 +23,12 @@ class CardapioController extends Controller
         return view('layouts.historico-cardapios', ['datas' => $datas]);
     }
 
+    public function index(Request $request)
+    {
+      $cardapios = Cardapio::all();
+      return $cardapios;
+    }
+
     //funcao update
     public function editarCardapio()
     {
@@ -57,9 +63,9 @@ class CardapioController extends Controller
 
     public function getCardapios($startDate,$endDate)
     {
-        $startDate = DateTime::createFromFormat('d/m/Y',$startDate);
-        $endDate = DateTime::createFromFormat('d/m/Y',$endDate);
-        $cardapios = Cardapio::where('date', '>=', $startDate)->where('date', '<=', $endDate);
+        $startDate = DateTime::createFromFormat('d-m-Y',$startDate);
+        $endDate = DateTime::createFromFormat('d-m-Y',$endDate);
+        $cardapios = Cardapio::where('date', '>=', $startDate)->where('date', '<=', $endDate)->get();
         //print_r($cardapios);
         return $cardapios;
     }

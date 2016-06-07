@@ -72,5 +72,5 @@ Route::get('/historico-cardapios', [
     'middleware' => 'auth',*/
 ]);
 
-Route::get('/cardapioAPI/{dt_start}/{dt_end}',
-['uses' => 'CardapioController@getCardapios'])->where(['dt_start' => '[0-9]{2}-[0-9]{2}-[0-9]{4}', 'dt_end' => '[0-9]{2}-[0-9]{2}-[0-9]{4}']);
+Route::get('/cardapio/{startDate}/{endDate}',
+['uses' => 'CardapioController@getCardapios'])->where(['startDate' => '[0-9]{2}-[0-9]{2}-[0-9]{4}', 'endDate' => '[0-9]{2}-[0-9]{2}-[0-9]{4}']);

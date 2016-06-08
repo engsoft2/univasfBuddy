@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Cardapio;
-use DateTime;
 use DateInterval;
+use DateTime;
 use Illuminate\Http\Request;
 
 class CardapioController extends Controller
@@ -25,8 +25,9 @@ class CardapioController extends Controller
 
     public function index(Request $request)
     {
-      $cardapios = Cardapio::all();
-      return $cardapios;
+        $cardapios = Cardapio::all();
+
+        return $cardapios;
     }
 
     //funcao update
@@ -47,12 +48,13 @@ class CardapioController extends Controller
         //return view('layouts.cardapio', ... );
         $lastMeal = Cardapio::max('date');
         //print_r($lastMeal);
-        $lastMeals = Cardapio::where('date','<=',$lastMeal);
-        $firstDate = date($lastMeal,strtotime('-5 days'));
-        $lastMeals = $lastMeals->where('date','=>',$firstDate);
+        $lastMeals = Cardapio::where('date', '<=', $lastMeal);
+        $firstDate = date($lastMeal, strtotime('-5 days'));
+        $lastMeals = $lastMeals->where('date', '=>', $firstDate);
         //return ($lastMeal);
-        return view('layouts.cardapio',['cardapios'=>$lastMeals]);
+        return view('layouts.cardapio', ['cardapios' => $lastMeals]);
     }
+
     /* Função Store */
     public function salvarCardapio(Request $request)
     {
@@ -61,10 +63,10 @@ class CardapioController extends Controller
         return response()->json(['start' => $request->startDate, 'end' => $request->endDate, 'lunch' => $request->lunch, 'dinner' => $request->dinner]);
     }
 
-    public function getCardapios($startDate,$endDate)
+    public function getCardapios($startDate, $endDate)
     {
-        $startDate = DateTime::createFromFormat('d-m-Y',$startDate);
-        $endDate = DateTime::createFromFormat('d-m-Y',$endDate);
+        $startDate = DateTime::createFromFormat('d-m-Y', $startDate);
+        $endDate = DateTime::createFromFormat('d-m-Y', $endDate);
         $cardapios = Cardapio::where('date', '>=', $startDate)->where('date', '<=', $endDate)->get();
         //print_r($cardapios);
         return $cardapios;
@@ -72,19 +74,19 @@ class CardapioController extends Controller
 
     public function store(Request $request)
     {
-        $lunchs = array();
-        $dinners = array();
-        $startDate = DateTime::createFromFormat('d/m/Y',$request->startDate);
-        $endDate = DateTime::createFromFormat('d/m/Y',$request->endDate);
+        $lunchs = [];
+        $dinners = [];
+        $startDate = DateTime::createFromFormat('d/m/Y', $request->startDate);
+        $endDate = DateTime::createFromFormat('d/m/Y', $request->endDate);
         //echo("<script>console.log('PHP: ".json_encode($startDate)."');</script>");
         $currentDate = $startDate;
-        foreach($request->lunch as $meal){
-          array_push($lunchs,Cardapio::parseLunch($meal,$currentDate,0));//tipo 0: almoço
+        foreach ($request->lunch as $meal) {
+            array_push($lunchs, Cardapio::parseLunch($meal, $currentDate, 0)); //tipo 0: almoço
           $currentDate = $currentDate->add(new DateInterval('P1D'));
         }
-        $currentDate = DateTime::createFromFormat('d/m/Y',$request->startDate);
-        foreach($request->dinner as $meal){
-          array_push($dinners,Cardapio::parseDinner($meal,$currentDate,1));//tipo 1: jantar
+        $currentDate = DateTime::createFromFormat('d/m/Y', $request->startDate);
+        foreach ($request->dinner as $meal) {
+            array_push($dinners, Cardapio::parseDinner($meal, $currentDate, 1)); //tipo 1: jantar
           $currentDate = $currentDate->add(new DateInterval('P1D'));
         }
         $cardapio = Cardapio::insert($lunchs);
@@ -111,15 +113,13 @@ class CardapioController extends Controller
     public function update(Request $request, $id, $type, $date)
     {
         $meal = [];
-        if($type == 0)
-        {
-          $meal = Cardapio::parseLunch($request->lunch,$date,$type);
+        if ($type == 0) {
+            $meal = Cardapio::parseLunch($request->lunch, $date, $type);
+        } elseif ($type == 1) {
+            $meal = Cardapio::parseDinner($request->dinner, $date, $type);
         }
-        else if ($type == 1)
-        {
-          $meal = Cardapio::parseDinner($request->dinner,$date,$type);
-        }
-        $cardapio = Cardapio::where('date', $date)->where('type',$type)->update($meal);
+        $cardapio = Cardapio::where('date', $date)->where('type', $type)->update($meal);
+
         return $cardapio;
     }
 }

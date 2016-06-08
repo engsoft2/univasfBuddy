@@ -1,4 +1,5 @@
 <?php
+
 // This is a sample PHP script which demonstrates the 'remote' validator
 // To make it work, point the web server to root Bootstrap Validate directory
 // and open the remote.html file:
@@ -10,15 +11,15 @@ header('Content-type: application/json');
 
 $valid = true;
 
-$users = array(
+$users = [
     'admin'         => 'admin@domain.com',
     'administrator' => 'administrator@domain.com',
     'root'          => 'root@domain.com',
-);
+];
 
 if (isset($_POST['username']) && array_key_exists($_POST['username'], $users)) {
     $valid = false;
-} else if (isset($_POST['email'])) {
+} elseif (isset($_POST['email'])) {
     $email = $_POST['email'][0];
     foreach ($users as $k => $v) {
         if ($email == $v) {
@@ -28,6 +29,6 @@ if (isset($_POST['username']) && array_key_exists($_POST['username'], $users)) {
     }
 }
 
-echo json_encode(array(
+echo json_encode([
     'valid' => $valid,
-));
+]);

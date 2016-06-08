@@ -1,6 +1,7 @@
 <?php
+
 $userName = $_POST['username'];
 
-echo json_encode(array(
+echo json_encode([
     'message' => sprintf('Welcome %s', $userName),
-));
+]);

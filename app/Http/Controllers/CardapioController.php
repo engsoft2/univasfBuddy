@@ -13,14 +13,13 @@ class CardapioController extends Controller
     public function historico(Request $request)
     {
         //retorna todas as datas para o layout
-      $datas = [['dataInicio'  => '20/05/16',
-      'dataFim'                => '27/05/16',
-      'id'                     => '1', ],
-      ['dataInicio'            => '30/05/16',
-      'dataFim'                => '06/06/16',
-      'id'                     => '2', ], ];
+      $datas = [[
+          'dataInicio'             => '13/06/2016',
+          'dataFim'                => '17/06/2016'],
+          ['dataInicio'            => '27/06/2016',
+          'dataFim'                => '01/07/2016']];
 
-        return view('layouts.historico-cardapios', ['datas' => $datas]);
+      return view('layouts.historico-cardapios', ['datas' => $datas]);
     }
 
     public function index(Request $request)
@@ -31,9 +30,9 @@ class CardapioController extends Controller
     }
 
     //funcao update
-    public function editarCardapio()
+    public function editarCardapio(Request $request)
     {
-        return view('layouts.editar-cardapio');
+        return view('layouts.editar-cardapio', ['firstDate' => $request->firstDate, 'lastDate' => $request->lastDate, 'cardapios' => $request->cardapios]);
     }
 
     public function criarCardapio()
@@ -43,16 +42,22 @@ class CardapioController extends Controller
 
     public function inicio()
     {
-        //procura último cardápio e sua data de início e fim
-        //e para o layout
-        //return view('layouts.cardapio', ... );
-        $lastMeal = Cardapio::max('date');
-        //print_r($lastMeal);
-        $lastMeals = Cardapio::where('date', '<=', $lastMeal);
-        $firstDate = date($lastMeal, strtotime('-5 days'));
-        $lastMeals = $lastMeals->where('date', '=>', $firstDate);
-        //return ($lastMeal);
-        return view('layouts.cardapio', ['cardapios' => $lastMeals]);
+
+        $lastDate = Cardapio::max('date');
+        $firstDate = null;
+        $lunch = null;
+        $dinner = null;
+
+        if(!is_null($lastDate)){
+            $firstDate = date('Y-m-d', strtotime('-4 days', strtotime($lastDate)));
+            $lunch = Cardapio::whereBetween('date', [$firstDate, $lastDate])->where('type', '=', 0)->get();
+            $dinner = Cardapio::whereBetween('date', [$firstDate, $lastDate])->where('type', '=', 1)->get();
+
+            $firstDate = date('d-m-Y', strtotime($firstDate));
+            $lastDate = date('d-m-Y', strtotime($lastDate));
+        }
+
+        return view('layouts.cardapio', ['firstDate' => $firstDate, 'lastDate' => $lastDate, 'lunch' => $lunch, 'dinner' => $dinner]);
     }
 
     /* Função Store */
@@ -63,13 +68,19 @@ class CardapioController extends Controller
         return response()->json(['start' => $request->startDate, 'end' => $request->endDate, 'lunch' => $request->lunch, 'dinner' => $request->dinner]);
     }
 
-    public function getCardapios($startDate, $endDate)
+    public function getCardapios(Request $request)
     {
-        $startDate = DateTime::createFromFormat('d-m-Y', $startDate);
-        $endDate = DateTime::createFromFormat('d-m-Y', $endDate);
-        $cardapios = Cardapio::where('date', '>=', $startDate)->where('date', '<=', $endDate)->get();
-        //print_r($cardapios);
-        return $cardapios;
+
+        $firstDate = date('d-m-Y', strtotime($request->firstDate));
+        $lastDate = date('d-m-Y', strtotime($request->lastDate));
+
+        $firstDate_DB = date('Y-m-d', strtotime($request->firstDate));
+        $lastDate_DB= date('Y-m-d', strtotime($request->lastDate));
+
+        $lunch = Cardapio::whereBetween('date', [$firstDate_DB, $lastDate_DB])->where('type', '=', 0)->get();
+        $dinner = Cardapio::whereBetween('date', [$firstDate_DB, $lastDate_DB])->where('type', '=', 1)->get();
+       
+        return view('layouts.cardapio', ['firstDate' => $firstDate, 'lastDate' => $lastDate, 'lunch' => $lunch, 'dinner' => $dinner]);
     }
 
     public function store(Request $request)

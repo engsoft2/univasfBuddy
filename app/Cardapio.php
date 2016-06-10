@@ -34,7 +34,7 @@ class Cardapio extends Model
           'prt_principal'                                     => $dinnerArray[1],
           'guarnicao'                                         => $dinnerArray[2],
           'cereal'                                            => $dinnerArray[3],
-          'leguminosa'                                        => $dinnerArray[4],
+          'vegetariano'                                       => $dinnerArray[4],
           'sopa'                                              => $dinnerArray[5],
           'bebida'                                            => $dinnerArray[6], ];
 

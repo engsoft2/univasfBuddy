@@ -37,6 +37,6 @@ class CreateCardapioTable extends Migration
      */
     public function down()
     {
-        Schema::drop('cardapio');
+        Schema::drop('cardapios');
     }
 }

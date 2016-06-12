@@ -3,20 +3,19 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 
 class Cardapio extends Model
 {
     // protected $dates = ['date'];
 
-    // public function setDateAttribute($date){ 
+    // public function setDateAttribute($date){
     //   return $this->attributes['date'] = \Carbon\Carbon::createFromFormat('d/m/Y', $date);
     // }
 
     // public function getDateAttribute($date){
-    //   return $this->asDateTime($date)->format('d/m/Y'); 
+    //   return $this->asDateTime($date)->format('d/m/Y');
     // }
-   
+
     public static function parseLunch($lunchArray, $startDate, $type)
     {
         $return =

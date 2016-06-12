@@ -9,7 +9,7 @@
 
 @section('content')
   <div class="container-fluid">
-    <h2>Editar Cardápio - {{$firstDate}}</h2>
+    <h2>Editar Cardápio - {{$firstDate}} à {{$lastDate}}</h2>
 
     <div class="refeicao-container">
       <h3>Almoço</h3>
@@ -29,14 +29,12 @@
 
   @section('scripts')
     $('#salvar-cardapio').on('click', function(){
-      console.log('salvar!');
-      console.log(JSON.stringify({data: lunch.getData()}));
       $.ajax({
         method: 'POST',
-        url: '{{ route('salvar-cardapio') }}',
+        url: '{{ route('editar') }}',
         data: {
-          startDate: {{$firstDate}},
-          endDate: {{$lastDate}},
+          startDate: '{{$firstDate}}',
+          endDate: '{{$lastDate}}',
           lunch: lunch.getData(),
           dinner: dinner.getData(),
           _token: '{{ Session::token() }}'
@@ -44,18 +42,14 @@
       })
       .done(function(msg){
         window.location.href = '{{ route('inicio') }}'
-        //console.log(JSON.stringify(msg));
+        //console.log(msg);
        });
     });
-
-    $(document).ready(function() {  
-      
+  
     var lunch = [
-      {saladaCrua: 'Pepino, Alface e Cenoura', saladaCozida: 'Batata Doce, Berinjela e Vagem', pratoPrincipal: 'Costela Bovina ao Molho Barbecue / Filé de Frango na Chapa', guanicao: 'Macarrão ao molho de tomate / Farofa Simples', cereal: 'Arroz Branco/Integral', leguminosa: 'Feijão Preto', vegetariano: 'Suflê de Legumes Vegano', sobremesa: 'Laranja / Pudim', suco: 'Acerola'},
-      {saladaCrua: 'Pepino, Alface e Cenoura', saladaCozida: 'Batata Doce, Berinjela e Vagem', pratoPrincipal: 'Costela Bovina ao Molho Barbecue / Filé de Frango na Chapa', guanicao: 'Macarrão ao molho de tomate / Farofa Simples', cereal: 'Arroz Branco/Integral', leguminosa: 'Feijão Preto', vegetariano: 'Suflê de Legumes Vegano', sobremesa: 'Laranja / Pudim', suco: 'Acerola'},
-      {saladaCrua: 'Pepino, Alface e Cenoura', saladaCozida: 'Batata Doce, Berinjela e Vagem', pratoPrincipal: 'Costela Bovina ao Molho Barbecue / Filé de Frango na Chapa', guanicao: 'Macarrão ao molho de tomate / Farofa Simples', cereal: 'Arroz Branco/Integral', leguminosa: 'Feijão Preto', vegetariano: 'Suflê de Legumes Vegano', sobremesa: 'Laranja / Pudim', suco: 'Acerola'},
-      {saladaCrua: 'Pepino, Alface e Cenoura', saladaCozida: 'Batata Doce, Berinjela e Vagem', pratoPrincipal: 'Costela Bovina ao Molho Barbecue / Filé de Frango na Chapa', guanicao: 'Macarrão ao molho de tomate / Farofa Simples', cereal: 'Arroz Branco/Integral', leguminosa: 'Feijão Preto', vegetariano: 'Suflê de Legumes Vegano', sobremesa: 'Laranja / Pudim', suco: 'Acerola'},
-      {saladaCrua: 'Pepino, Alface e Cenoura', saladaCozida: 'Batata Doce, Berinjela e Vagem', pratoPrincipal: 'Costela Bovina ao Molho Barbecue / Filé de Frango na Chapa', guanicao: 'Macarrão ao molho de tomate / Farofa Simples', cereal: 'Arroz Branco/Integral', leguminosa: 'Feijão Preto', vegetariano: 'Suflê de Legumes Vegano', sobremesa: 'Laranja / Pudim', suco: 'Acerola'}
+       @foreach($lunch as $day)
+          {saladaCrua:'{{ $day['sld_crua']}}', saladaCozida: '{{$day['sld_cozida']}}', pratoPrincipal: '{{$day['prt_principal']}}', guanicao: '{{$day['guarnicao']}}', cereal: '{{$day['cereal']}}', leguminosa: '{{$day['leguminosa']}}', vegetariano: '{{$day['vegetariano']}}', sobremesa: '{{$day['sobremesa']}}', suco: '{{$day['bebida']}}'},  
+        @endforeach 
     ];
 
     var lunchElement = document.querySelector('#lunch');
@@ -136,11 +130,9 @@
     var lunch = new Handsontable(lunchElement, luchSettings);
 
     var dinner = [
-      {saladaCruaCozida: 'Vagem, cenoura e beterraba', pratoPrincipal: 'Isca de frango empanado', guanicao: 'Cuscuz com carne', cereal: 'Arroz Branco/Integral' , vegetariano: 'Suflê de Legumes Vegano', sopa: 'Sopa de Feijão', bebida: 'Acerola'},
-      {saladaCruaCozida: 'Vagem, cenoura e beterraba', pratoPrincipal: 'Isca de frango empanado', guanicao: 'Cuscuz com carne', cereal: 'Arroz Branco/Integral' , vegetariano: 'Suflê de Legumes Vegano', sopa: 'Sopa de Feijão', bebida: 'Acerola'},
-      {saladaCruaCozida: 'Vagem, cenoura e beterraba', pratoPrincipal: 'Isca de frango empanado', guanicao: 'Cuscuz com carne', cereal: 'Arroz Branco/Integral' , vegetariano: 'Suflê de Legumes Vegano', sopa: 'Sopa de Feijão', bebida: 'Acerola'},
-      {saladaCruaCozida: 'Vagem, cenoura e beterraba', pratoPrincipal: 'Isca de frango empanado', guanicao: 'Cuscuz com carne', cereal: 'Arroz Branco/Integral' , vegetariano: 'Suflê de Legumes Vegano', sopa: 'Sopa de Feijão', bebida: 'Acerola'},
-      {saladaCruaCozida: 'Vagem, cenoura e beterraba', pratoPrincipal: 'Isca de frango empanado', guanicao: 'Cuscuz com carne', cereal: 'Arroz Branco/Integral' , vegetariano: 'Suflê de Legumes Vegano', sopa: 'Sopa de Feijão', bebida: 'Acerola'},
+        @foreach($dinner as $day)
+          {saladaCruaCozida: '{{$day['sld_crua']}}', pratoPrincipal: '{{$day['prt_principal']}}', guanicao: '{{$day['guarnicao']}}', cereal: '{{$day['cereal']}}', vegetariano: '{{$day['vegetariano']}}', sopa: '{{$day['sopa']}}', bebida: '{{$day['bebida']}}'},                
+        @endforeach 
     ];
 
     var dinnerElement = document.querySelector('#dinner');
@@ -207,7 +199,6 @@
     };
 
     var dinner = new Handsontable(dinnerElement, dinnerSettings);
-  });
 
   @stop
 

@@ -59,8 +59,14 @@ Route::post('/salvar-cardapio', [
     'middleware' => 'auth',*/
 ]);
 
-Route::post('/editar-cardapio', [
+Route::post('/editar', [
     'uses'       => 'CardapioController@update',
+    'as'         => 'editar',/*,
+    'middleware' => 'auth',*/
+]);
+
+Route::post('/editar-cardapio', [
+    'uses'       => 'CardapioController@editarCardapio',
     'as'         => 'editar-cardapio',/*,
     'middleware' => 'auth',*/
 ]);
@@ -83,5 +89,5 @@ Route::get('/cardapio-index', [
 ]);
 
 //Observar a regex: apenas datas no formato dd-mm-yyyy serão aceitas, no formato d-m-yyyy será retornado 404 not found.
-Route::get('/cardapio/{firstDate}/{lastDate}',
+Route::get('/cardapio/{startDate}/{endDate}',
 ['uses' => 'CardapioController@getCardapios'])->where(['startDate' => '[0-9]{2}-[0-9]{2}-[0-9]{4}', 'endDate' => '[0-9]{2}-[0-9]{2}-[0-9]{4}']);

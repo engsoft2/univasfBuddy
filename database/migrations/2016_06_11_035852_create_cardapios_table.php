@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCardapioTable extends Migration
+class CreateCardapiosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -26,7 +26,7 @@ class CreateCardapioTable extends Migration
             $table->text('sobremesa');
             $table->text('sopa');
             $table->text('bebida');
-            //$table->timestamps();
+            $table->timestamps();
         });
     }
 

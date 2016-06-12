@@ -3,14 +3,24 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Cardapio extends Model
 {
-    //
+    // protected $dates = ['date'];
+
+    // public function setDateAttribute($date){ 
+    //   return $this->attributes['date'] = \Carbon\Carbon::createFromFormat('d/m/Y', $date);
+    // }
+
+    // public function getDateAttribute($date){
+    //   return $this->asDateTime($date)->format('d/m/Y'); 
+    // }
+   
     public static function parseLunch($lunchArray, $startDate, $type)
     {
         $return =
-          ['date'                                             => date_format($startDate, 'Y-m-d'),
+          ['date'                                             => $startDate,
           'type'                                              => $type,
           'sld_crua'                                          => $lunchArray[0],
           'sld_cozida'                                        => $lunchArray[1],
@@ -28,7 +38,7 @@ class Cardapio extends Model
     public static function parseDinner($dinnerArray, $startDate, $type)
     {
         $return =
-          ['date'                                             => date_format($startDate, 'Y-m-d'),
+          ['date'                                             => $startDate,
           'type'                                              => $type,
           'sld_crua'                                          => $dinnerArray[0],
           'prt_principal'                                     => $dinnerArray[1],

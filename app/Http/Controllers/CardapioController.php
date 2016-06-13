@@ -12,13 +12,54 @@ class CardapioController extends Controller
     public function historico(Request $request)
     {
         //retorna todas as datas para o layout
-      $datas = [[
-          'dataInicio'             => '13/06/2016',
-          'dataFim'                => '17/06/2016', ],
-          ['dataInicio'            => '27/06/2016',
-          'dataFim'                => '01/07/2016', ], ];
+        $history = [];
+        $dates = Cardapio::select('date')->orderBy('date', 'desc')
+                ->get();
+        // echo($dates->first());
+        $numberOfDates = $dates->count();
+        // echo($numberOfDates);
+        // echo($firstDate);
+        for($i = $numberOfDates-1; $i >= 9; $i -= 10)
+        {
+          // echo($dates[$i]['date']);
+          $firstDateCarbon = Carbon::createFromFormat('Y-m-d', $dates[$i-9]['date']);
+          $lastDateCarbon = Carbon::createFromFormat('Y-m-d', $dates[$i]['date']);
 
-        return view('layouts.historico-cardapios', ['datas' => $datas]);
+          array_push($history,['dataInicio'=>$firstDateCarbon->format('d-m-Y'),'dataFim'=>$lastDateCarbon->format('d-m-Y')]);
+        }
+        //return $history;
+        return view('layouts.historico-cardapios', ['datas' => $history]);
+        //
+        // while(){
+        //   $firstDateCarbon = Carbon::createFromFormat('Y-m-d', $firstDate);
+        //   print_r($firstDate);
+        //   $firstDateCarbon = Carbon::createFromFormat('Y-m-d', $firstDate);
+        //   print_r($firstDateCarbon);
+        //   $lastDateOfWeek = $firstDateCarbon->copy()->addDays(4);
+        //   array_push($dates,['date' => ['firstDate'=>$firstDateCarbon->format('d-m-Y'),'lastDateOfWeek'=>$lastDateOfWeek->format('d-m-Y')]]);
+
+
+        //}
+      //   else{
+      //     return $dates;
+      //
+      //
+      //   }null : Carbon::parse(Cardapio::min('date'));
+      //   $lastDateOfDb = Carbon::parse(Cardapio::max('date'));
+      //
+      //   while()
+      //   if(empty(Cardapio::min('date')) == true ){
+      //      Carbon::parse(Cardapio::min('date'));
+      //   }
+      //   $firstDate = empty(Cardapio::min('date')) == true ? null : Carbon::parse(Cardapio::min('date'));
+      //
+      // /*$datas = [[
+      //     'dataInicio'             => '13/06/2016',
+      //     'dataFim'                => '17/06/2016', ],
+      //     ['dataInicio'            => '27/06/2016',
+      //     'dataFim'                => '01/07/2016', ], ];*/
+      //
+      //   return view('layouts.historico-cardapios', ['datas' => $datas]);
     }
 
     public function index(Request $request)

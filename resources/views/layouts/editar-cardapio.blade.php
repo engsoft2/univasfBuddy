@@ -59,47 +59,47 @@
       columns: [
           {
               data: 'saladaCrua',
-              type: 'text',
+              type: 'unicode',
               width: 150
           },
           {
               data: 'saladaCozida',
-              type: 'text',
+              type: 'unicode',
               width: 150
           },
           {
               data: 'pratoPrincipal',
-              type: 'text',
+              type: 'unicode',
               width: 200
           },
           {
               data: 'guanicao',
-              type: 'text',
+              type: 'unicode',
               width: 150
           },
                           {
               data: 'cereal',
-              type: 'text',
+              type: 'unicode',
               width: 150
           },
           {
               data: 'leguminosa',
-              type: 'text',
+              type: 'unicode',
               width: 150
           },
                           {
               data: 'vegetariano',
-              type: 'text',
+              type: 'unicode',
               width: 150
           },
           {
               data: 'sobremesa',
-              type: 'text',
+              type: 'unicode',
               width: 150
           },
                           {
               data: 'suco',
-              type: 'text',
+              type: 'unicode',
               width: 100
           }      
 
@@ -142,37 +142,37 @@
       columns: [
           {
               data: 'saladaCruaCozida',
-              type: 'text',
+              type: 'unicode',
               width: 150
           },
           {
               data: 'pratoPrincipal',
-              type: 'text',
+              type: 'unicode',
               width: 200
           },
           {
               data: 'guanicao',
-              type: 'text',
+              type: 'unicode',
               width: 150
           },
                           {
               data: 'cereal',
-              type: 'text',
+              type: 'unicode',
               width: 150
           },
           {
               data: 'vegetariano',
-              type: 'text',
+              type: 'unicode',
               width: 150
           },
           {
               data: 'sopa',
-              type: 'text',
+              type: 'unicode',
               width: 150
           },
                           {
               data: 'bebida',
-              type: 'text',
+              type: 'unicode',
               width: 150
           }      
 

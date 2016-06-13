@@ -61,55 +61,55 @@
         columns: [
             {
                 data: 'saladaCrua',
-                type: 'text',
+                type: 'unicode',
                 width: 150,
                 readOnly: true
             },
             {
                 data: 'saladaCozida',
-                type: 'text',
+                type: 'unicode',
                 width: 150,
                 readOnly: true
             },
             {
                 data: 'pratoPrincipal',
-                type: 'text',
+                type: 'unicode',
                 width: 200, 
                 readOnly: true
             },
             {
                 data: 'guanicao',
-                type: 'text',
+                type: 'unicode',
                 width: 150,
                 readOnly: true
             },
                             {
                 data: 'cereal',
-                type: 'text',
+                type: 'unicode',
                 width: 150,
                 readOnly: true
             },
             {
                 data: 'leguminosa',
-                type: 'text',
+                type: 'unicode',
                 width: 150,
                 readOnly: true
             },
                             {
                 data: 'vegetariano',
-                type: 'text',
+                type: 'unicode',
                 width: 150,
                 readOnly: true
             },
             {
                 data: 'sobremesa',
-                type: 'text',
+                type: 'unicode',
                 width: 150,
                 readOnly: true
             },
                             {
                 data: 'suco',
-                type: 'text',
+                type: 'unicode',
                 width: 100,
                 readOnly: true
             }      
@@ -152,43 +152,43 @@
         columns: [
             {
                 data: 'saladaCruaCozida',
-                type: 'text',
+                type: 'unicode',
                 width: 150,
                 readOnly: true
             },
             {
                 data: 'pratoPrincipal',
-                type: 'text',
+                type: 'unicode',
                 width: 200,
                 readOnly: true
             },
             {
                 data: 'guanicao',
-                type: 'text',
+                type: 'unicode',
                 width: 150,
                 readOnly: true
             },
                             {
                 data: 'cereal',
-                type: 'text',
+                type: 'unicode',
                 width: 150,
                 readOnly: true
             },
             {
                 data: 'vegetariano',
-                type: 'text',
+                type: 'unicode',
                 width: 150,
                 readOnly: true
             },
             {
                 data: 'sopa',
-                type: 'text',
+                type: 'unicode',
                 width: 150,
                 readOnly: true
             },
                             {
                 data: 'bebida',
-                type: 'text',
+                type: 'unicode',
                 width: 150,
                 readOnly: true
             }      

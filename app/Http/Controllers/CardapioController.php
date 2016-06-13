@@ -31,12 +31,12 @@ class CardapioController extends Controller
         for($i = 0; $i < $numberOfDates; $i += 10)
         {
           // echo($dates[$i]['date']);
-          $firstDateCarbon = Carbon::createFromFormat('Y-m-d', $dates[$i]['date']);
-          $lastDateCarbon = Carbon::createFromFormat('Y-m-d', $dates[$i+9]['date']);
+          $lastDateCarbon = Carbon::createFromFormat('Y-m-d', $dates[$i]['date']);
+          $firstDateCarbon = Carbon::createFromFormat('Y-m-d', $dates[$i+9]['date']);
 
           array_push($history,['dataInicio'=>$firstDateCarbon->format('d-m-Y'),'dataFim'=>$lastDateCarbon->format('d-m-Y')]);
         }
-        //return $history;
+        // print_r($history);
         return view('layouts.historico-cardapios', ['datas' => $history]);
         //
         // while(){

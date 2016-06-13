@@ -108,18 +108,18 @@ class CardapioController extends Controller
           return response()->json($cardapio);
     }
 
-    public function update(Request $request, $id, $type, $date)
+    public function update(Request $request)
     {
         $meal = [];
         if($type == 0)
         {
-          $meal = Cardapio::parseLunch($request->lunch,$date,$type);
+          $meal = Cardapio::parseLunch($request->lunch,$request->date,$request->type);
         }
         else if ($type == 1)
         {
-          $meal = Cardapio::parseDinner($request->dinner,$date,$type);
+          $meal = Cardapio::parseDinner($request->dinner,$request->date,$request->type);
         }
-        $cardapio = Cardapio::where('date', $date)->where('type',$type)->update($meal);
+        $cardapio = Cardapio::where('date', $request->date)->where('type',$request->type)->update($meal);
         return $cardapio;
     }
 }

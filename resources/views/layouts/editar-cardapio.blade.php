@@ -9,7 +9,7 @@
 
 @section('content')
   <div class="container-fluid">
-    <h2>Editar Cardápio</h2>
+    <h2>Editar Cardápio - {{$firstDate}} à {{$lastDate}}</h2>
 
     <div class="refeicao-container">
       <h3>Almoço</h3>
@@ -20,7 +20,7 @@
       <h3>Jantar</h3>
       <div id="dinner"></div>
 
-      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#save-modal">
+      <button type="button" class="btn btn-primary btn-sm" id="salvar-cardapio">
         Salvar Alterações
       </button>
     </div>
@@ -28,74 +28,28 @@
   </div>
 
   @section('scripts')
-    $(document).ready(function() {  
-      $('#dataForm').formValidation({
-          framework: 'bootstrap',
-          excluded: ':disabled',
-          icon: {
-              valid: 'glyphicon glyphicon-ok',
-              invalid: 'glyphicon glyphicon-remove',
-              validating: 'glyphicon glyphicon-refresh'
-          },
-          fields: {
-              dataInicio: {
-                  validators: {
-                      notEmpty: {
-                          message: 'Insira uma data de início.'
-                      }
-                  }
-              },
-              dataFim: {
-                  validators: {
-                      notEmpty: {
-                          message: 'Insira uma data de término.'
-                      }
-                  }
-              }
-          }
-      }).on('success.form.fv', function(e) {
-
-         e.preventDefault();
-
-            // You can get the form instance
-            var $form = $(e.target);
-
-            // and the FormValidation instance
-            var fv = $form.data('formValidation');
-
-        console.log(JSON.stringify({data: lunch.getData()}));
-        console.log($('#dataInicio').val());
-        console.log($('#dataFim').val());
-        $("#save-modal").modal('toggle');
-        // $.ajax({
-        // method: 'POST',
-        // url: url,
-        // data: {date: date, lunch: lunch.getData(), dinner: dinner.getData(), _token: token}
-        // })
-        // .done(function(msg){
-        // console.log(msg['message']);
-        //  });
-
-      });
-
-      $('#dataInicio').datetimepicker({
-        format: 'DD/MM/YYYY'
-      }).on('dp.change dp.show', function(e) {
-        $('#dataForm').formValidation('revalidateField', 'dataInicio');
-      });
-
-      $('#dataFim').datetimepicker({
-        format: 'DD/MM/YYYY'
-      }).on('dp.change dp.show', function(e) {
-        $('#dataForm').formValidation('revalidateField', 'dataFim');
-      });
-
+    $('#salvar-cardapio').on('click', function(){
+      $.ajax({
+        method: 'POST',
+        url: '{{ route('editar') }}',
+        data: {
+          startDate: '{{$firstDate}}',
+          endDate: '{{$lastDate}}',
+          lunch: lunch.getData(),
+          dinner: dinner.getData(),
+          _token: '{{ Session::token() }}'
+        }
+      })
+      .done(function(msg){
+        window.location.href = '{{ route('inicio') }}'
+        //console.log(msg);
+       });
+    });
+  
     var lunch = [
-      {saladaCrua: 'Pepino, Alface e Cenoura', saladaCozida: 'Batata Doce, Berinjela e Vagem', pratoPrincipal: 'Costela Bovina ao Molho Barbecue / Filé de Frango na Chapa', guanicao: 'Macarrão ao molho de tomate / Farofa Simples', cereal: 'Arroz Branco/Integral', leguminosa: 'Feijão Preto', vegetariano: 'Suflê de Legumes Vegano', sobremesa: 'Laranja / Pudim', suco: 'Acerola'},
-      {saladaCrua: 'Pepino, Alface e Cenoura', saladaCozida: 'Batata Doce, Berinjela e Vagem', pratoPrincipal: 'Costela Bovina ao Molho Barbecue / Filé de Frango na Chapa', guanicao: 'Macarrão ao molho de tomate / Farofa Simples', cereal: 'Arroz Branco/Integral', leguminosa: 'Feijão Preto', vegetariano: 'Suflê de Legumes Vegano', sobremesa: 'Laranja / Pudim', suco: 'Acerola'},
-      {saladaCrua: 'Pepino, Alface e Cenoura', saladaCozida: 'Batata Doce, Berinjela e Vagem', pratoPrincipal: 'Costela Bovina ao Molho Barbecue / Filé de Frango na Chapa', guanicao: 'Macarrão ao molho de tomate / Farofa Simples', cereal: 'Arroz Branco/Integral', leguminosa: 'Feijão Preto', vegetariano: 'Suflê de Legumes Vegano', sobremesa: 'Laranja / Pudim', suco: 'Acerola'},
-      {saladaCrua: 'Pepino, Alface e Cenoura', saladaCozida: 'Batata Doce, Berinjela e Vagem', pratoPrincipal: 'Costela Bovina ao Molho Barbecue / Filé de Frango na Chapa', guanicao: 'Macarrão ao molho de tomate / Farofa Simples', cereal: 'Arroz Branco/Integral', leguminosa: 'Feijão Preto', vegetariano: 'Suflê de Legumes Vegano', sobremesa: 'Laranja / Pudim', suco: 'Acerola'},
-      {saladaCrua: 'Pepino, Alface e Cenoura', saladaCozida: 'Batata Doce, Berinjela e Vagem', pratoPrincipal: 'Costela Bovina ao Molho Barbecue / Filé de Frango na Chapa', guanicao: 'Macarrão ao molho de tomate / Farofa Simples', cereal: 'Arroz Branco/Integral', leguminosa: 'Feijão Preto', vegetariano: 'Suflê de Legumes Vegano', sobremesa: 'Laranja / Pudim', suco: 'Acerola'}
+       @foreach($lunch as $day)
+          {saladaCrua:'{{ $day['sld_crua']}}', saladaCozida: '{{$day['sld_cozida']}}', pratoPrincipal: '{{$day['prt_principal']}}', guanicao: '{{$day['guarnicao']}}', cereal: '{{$day['cereal']}}', leguminosa: '{{$day['leguminosa']}}', vegetariano: '{{$day['vegetariano']}}', sobremesa: '{{$day['sobremesa']}}', suco: '{{$day['bebida']}}'},  
+        @endforeach 
     ];
 
     var lunchElement = document.querySelector('#lunch');
@@ -176,11 +130,9 @@
     var lunch = new Handsontable(lunchElement, luchSettings);
 
     var dinner = [
-      {saladaCruaCozida: 'Vagem, cenoura e beterraba', pratoPrincipal: 'Isca de frango empanado', guanicao: 'Cuscuz com carne', cereal: 'Arroz Branco/Integral' , vegetariano: 'Suflê de Legumes Vegano', sopa: 'Sopa de Feijão', bebida: 'Acerola'},
-      {saladaCruaCozida: 'Vagem, cenoura e beterraba', pratoPrincipal: 'Isca de frango empanado', guanicao: 'Cuscuz com carne', cereal: 'Arroz Branco/Integral' , vegetariano: 'Suflê de Legumes Vegano', sopa: 'Sopa de Feijão', bebida: 'Acerola'},
-      {saladaCruaCozida: 'Vagem, cenoura e beterraba', pratoPrincipal: 'Isca de frango empanado', guanicao: 'Cuscuz com carne', cereal: 'Arroz Branco/Integral' , vegetariano: 'Suflê de Legumes Vegano', sopa: 'Sopa de Feijão', bebida: 'Acerola'},
-      {saladaCruaCozida: 'Vagem, cenoura e beterraba', pratoPrincipal: 'Isca de frango empanado', guanicao: 'Cuscuz com carne', cereal: 'Arroz Branco/Integral' , vegetariano: 'Suflê de Legumes Vegano', sopa: 'Sopa de Feijão', bebida: 'Acerola'},
-      {saladaCruaCozida: 'Vagem, cenoura e beterraba', pratoPrincipal: 'Isca de frango empanado', guanicao: 'Cuscuz com carne', cereal: 'Arroz Branco/Integral' , vegetariano: 'Suflê de Legumes Vegano', sopa: 'Sopa de Feijão', bebida: 'Acerola'},
+        @foreach($dinner as $day)
+          {saladaCruaCozida: '{{$day['sld_crua']}}', pratoPrincipal: '{{$day['prt_principal']}}', guanicao: '{{$day['guarnicao']}}', cereal: '{{$day['cereal']}}', vegetariano: '{{$day['vegetariano']}}', sopa: '{{$day['sopa']}}', bebida: '{{$day['bebida']}}'},                
+        @endforeach 
     ];
 
     var dinnerElement = document.querySelector('#dinner');
@@ -247,7 +199,6 @@
     };
 
     var dinner = new Handsontable(dinnerElement, dinnerSettings);
-  });
 
   @stop
 

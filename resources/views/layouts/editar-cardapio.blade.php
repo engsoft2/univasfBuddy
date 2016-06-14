@@ -26,9 +26,10 @@
     </div>
 
   </div>
+@endsection
 
-  @section('scripts')
-    $('#salvar-cardapio').on('click', function(){
+@section('scripts')
+    $('#salvar-cardapio').on('click', function() {
       $.ajax({
         method: 'POST',
         url: '{{ route('editar') }}',
@@ -39,167 +40,43 @@
           dinner: dinner.getData(),
           _token: '{{ Session::token() }}'
         }
-      })
-      .done(function(msg){
+      }).done(function(msg) {
         window.location.href = '{{ route('inicio') }}'
-        //console.log(msg);
-       });
+      });
     });
-  
+
     var lunch = [
-       @foreach($lunch as $day)
-          {saladaCrua:'{{ $day['sld_crua']}}', saladaCozida: '{{$day['sld_cozida']}}', pratoPrincipal: '{{$day['prt_principal']}}', guanicao: '{{$day['guarnicao']}}', cereal: '{{$day['cereal']}}', leguminosa: '{{$day['leguminosa']}}', vegetariano: '{{$day['vegetariano']}}', sobremesa: '{{$day['sobremesa']}}', suco: '{{$day['bebida']}}'},  
-        @endforeach 
+      @foreach($lunch as $day)
+        {
+            saladaCrua:       '{{ $day['sld_crua']      }}',
+            saladaCozida:     '{{ $day['sld_cozida']    }}',
+            pratoPrincipal:   '{{ $day['prt_principal'] }}',
+            guanicao:         '{{ $day['guarnicao']     }}',
+            cereal:           '{{ $day['cereal']        }}',
+            leguminosa:       '{{ $day['leguminosa']    }}',
+            vegetariano:      '{{ $day['vegetariano']   }}',
+            sobremesa:        '{{ $day['sobremesa']     }}',
+            suco:             '{{ $day['bebida']        }}'
+        },
+      @endforeach
     ];
-
-    var lunchElement = document.querySelector('#lunch');
-    var luchElementContainer = lunchElement.parentNode;
-    var luchSettings = {
-      data: lunch,
-      columns: [
-          {
-              data: 'saladaCrua',
-              type: 'text',
-              width: 150
-          },
-          {
-              data: 'saladaCozida',
-              type: 'text',
-              width: 150
-          },
-          {
-              data: 'pratoPrincipal',
-              type: 'text',
-              width: 200
-          },
-          {
-              data: 'guanicao',
-              type: 'text',
-              width: 150
-          },
-                          {
-              data: 'cereal',
-              type: 'text',
-              width: 150
-          },
-          {
-              data: 'leguminosa',
-              type: 'text',
-              width: 150
-          },
-                          {
-              data: 'vegetariano',
-              type: 'text',
-              width: 150
-          },
-          {
-              data: 'sobremesa',
-              type: 'text',
-              width: 150
-          },
-                          {
-              data: 'suco',
-              type: 'text',
-              width: 100
-          }      
-
-      ],
-      autoWrapRow: true,
-      rowHeaders: [
-          'Segunda-Feira',
-          'Terça-Feira',
-          'Quarta-Feira',
-          'Quinta-Feira',
-          'Sexta-feira'
-      ],
-      colHeaders: [
-          'Salada Crua',
-          'Salada Cozida',
-          'Prato Principal',
-          'Guarnição',
-          'Cereal',
-          'Leguminosa',
-          'Vegetariano',
-          'Sobremesa',
-          'Suco'
-      ],
-      manualRowResize: true,
-      manualColumnResize: true
-    };
-
-    var lunch = new Handsontable(lunchElement, luchSettings);
 
     var dinner = [
-        @foreach($dinner as $day)
-          {saladaCruaCozida: '{{$day['sld_crua']}}', pratoPrincipal: '{{$day['prt_principal']}}', guanicao: '{{$day['guarnicao']}}', cereal: '{{$day['cereal']}}', vegetariano: '{{$day['vegetariano']}}', sopa: '{{$day['sopa']}}', bebida: '{{$day['bebida']}}'},                
-        @endforeach 
+      @foreach($dinner as $day)
+        {
+            saladaCruaCozida: '{{ $day['sld_crua']        }}',
+            pratoPrincipal:   '{{ $day['prt_principal']   }}',
+            guanicao:         '{{ $day['guarnicao']       }}',
+            cereal:           '{{ $day['cereal']          }}',
+            vegetariano:      '{{ $day['vegetariano']     }}',
+            sopa:             '{{ $day['sopa']            }}',
+            bebida:           '{{ $day['bebida']          }}'
+        },
+      @endforeach
     ];
 
-    var dinnerElement = document.querySelector('#dinner');
-    var dinnerElementContainer = dinnerElement.parentNode;
-    var dinnerSettings = {
-      data: dinner,
-      columns: [
-          {
-              data: 'saladaCruaCozida',
-              type: 'text',
-              width: 150
-          },
-          {
-              data: 'pratoPrincipal',
-              type: 'text',
-              width: 200
-          },
-          {
-              data: 'guanicao',
-              type: 'text',
-              width: 150
-          },
-                          {
-              data: 'cereal',
-              type: 'text',
-              width: 150
-          },
-          {
-              data: 'vegetariano',
-              type: 'text',
-              width: 150
-          },
-          {
-              data: 'sopa',
-              type: 'text',
-              width: 150
-          },
-                          {
-              data: 'bebida',
-              type: 'text',
-              width: 150
-          }      
+    var isReadOnly = false;
+    @include('includes.js.lunch_spreadsheet');
+    @include('includes.js.dinner_spreadsheet');
 
-      ],
-      autoWrapRow: true,
-      rowHeaders: [
-          'Segunda-Feira',
-          'Terça-Feira',
-          'Quarta-Feira',
-          'Quinta-Feira',
-          'Sexta-feira'
-      ],
-      colHeaders: [
-          'Salada Crua/Cozida',
-          'Prato Principal',
-          'Guarnição',
-          'Cereal',
-          'Vegetariano',
-          'Sopa',
-          'Bebida'
-      ],
-      manualRowResize: true,
-      manualColumnResize: true
-    };
-
-    var dinner = new Handsontable(dinnerElement, dinnerSettings);
-
-  @stop
-
-@endsection
+@stop

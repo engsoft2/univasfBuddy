@@ -17,48 +17,49 @@
         <div id="jsGrid"></div>
       @endif
     </div>
-  </div>       
-  
-  @section('scripts')
+  </div>
+@endsection
+
+@section('scripts')
     @if(!empty($datas))
       var clients = [
         @foreach($datas as $cardapio)
-          { "Data de Início": "{{$cardapio['dataInicio']}}", "Data de Término": "{{$cardapio['dataFim']}}" },                  
-        @endforeach 
+          {
+              "Data de Início":  "{{ $cardapio['dataInicio'] }}",
+              "Data de Término": "{{ $cardapio['dataFim']    }}"
+          },
+        @endforeach
       ];
 
       jsGrid.locale("pt-br");
 
       $("#jsGrid").jsGrid({
-          width: "100%",
-   
-          //filtering: true,
-          sorting: true,
-          paging: true,
-          autoload: true,
-   
-          pageSize: 15,
-          pageButtonCount: 5,
+        width: "100%",
 
-          data: clients,
+        //filtering: true,
+        sorting: true,
+        paging: true,
+        autoload: true,
 
-          rowClick: function(args) {
-            var firstDate = args.item["Data de Início"].replace(/\//gi, '-');
-            var lastDate = args.item["Data de Término"].replace(/\//gi, '-');
-            console.log(args.item, firstDate, lastDate);
-            window.location.href = "{{ route('cardapio') }}" + "/" + firstDate + "/" + lastDate;
-          },  
+        pageSize: 15,
+        pageButtonCount: 5,
 
-          fields: [
-              { name: "Data de Início", type: "date"},
-              { name: "Data de Término", type: "date"}
-          ]
+        data: clients,
+
+        rowClick: function(args) {
+          var firstDate = args.item["Data de Início"].replace(/\//gi, '-');
+          var lastDate = args.item["Data de Término"].replace(/\//gi, '-');
+          console.log(args.item, firstDate, lastDate);
+          window.location.href = "{{ route('cardapio') }}" + "/" + firstDate + "/" + lastDate;
+        },
+
+        fields: [{
+          name: "Data de Início",
+          type: "date"
+        }, {
+          name: "Data de Término",
+          type: "date"
+        }]
       });
     @endif
-
-
-     
-
-  @stop
-
-@endsection
+@stop

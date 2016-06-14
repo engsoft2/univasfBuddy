@@ -19,6 +19,7 @@ elixir(function(mix) {
     	'/../../../bower_components/bootstrap/dist/js/bootstrap.min.js',
       '/../../../bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
       '/../../../bower_components/handsontable/dist/handsontable.full.js',
+      '/../../../bower_components/handsontable-unicode/dist/handsontable-unicode.min.js',
       '/../../../bower_components/form.validation/dist/js/formValidation.min.js',
       '/../../../bower_components/jsgrid/dist/jsgrid.min.js',
       '/../../../bower_components/jsgrid/src/i18n/pt-br.js',
